@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		09054FE71959B9770023AC00 /* close-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 09054FE61959B9770023AC00 /* close-button.png */; };
+		09054FE91959B9830023AC00 /* close-button.png in Resources */ = {isa = PBXBuildFile; fileRef = 09054FE81959B9830023AC00 /* close-button.png */; };
 		09368E511934C71900138404 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 09368E501934C71900138404 /* Position.m */; };
 		098369B719599491005CA73A /* ElasticLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 098369B619599491005CA73A /* ElasticLine.m */; };
 		098369BA195996AA005CA73A /* pathLine.plist in Resources */ = {isa = PBXBuildFile; fileRef = 098369B8195996AA005CA73A /* pathLine.plist */; };
@@ -390,6 +392,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		09054FE61959B9770023AC00 /* close-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-button.png"; sourceTree = "<group>"; };
+		09054FE81959B9830023AC00 /* close-button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "close-button.png"; sourceTree = "<group>"; };
 		09368E4F1934C71800138404 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
 		09368E501934C71900138404 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
 		098369B519599491005CA73A /* ElasticLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElasticLine.h; sourceTree = "<group>"; };
@@ -1155,6 +1159,7 @@
 		09B4CC5219597275002726F6 /* iphone5hd */ = {
 			isa = PBXGroup;
 			children = (
+				09054FE81959B9830023AC00 /* close-button.png */,
 			);
 			path = iphone5hd;
 			sourceTree = "<group>";
@@ -1162,6 +1167,7 @@
 		09B4CC5319597275002726F6 /* iphonehd */ = {
 			isa = PBXGroup;
 			children = (
+				09054FE61959B9770023AC00 /* close-button.png */,
 			);
 			path = iphonehd;
 			sourceTree = "<group>";
@@ -2476,6 +2482,7 @@
 				09B4CC9519597275002726F6 /* locker-ipadhd.png in Resources */,
 				09B4CCD119597275002726F6 /* level_6.xml in Resources */,
 				098369DA19599936005CA73A /* weaponCountSprite-ipad.png in Resources */,
+				09054FE71959B9770023AC00 /* close-button.png in Resources */,
 				13BEAB2F1936FB01007E35FE /* vg_timer.png in Resources */,
 				09B4CCE419597307002726F6 /* fluffy-ipadhd.png in Resources */,
 				09B4CCA619597275002726F6 /* chapter1.jpg in Resources */,
@@ -2491,6 +2498,7 @@
 				09B4CCC219597275002726F6 /* rate.png in Resources */,
 				09B4CCD319597275002726F6 /* level_8.xml in Resources */,
 				09B4CCB519597275002726F6 /* foxSprite.png in Resources */,
+				09054FE91959B9830023AC00 /* close-button.png in Resources */,
 				098369D619599936005CA73A /* stain2-ipad.png in Resources */,
 				09B4CCCD19597275002726F6 /* level_2.xml in Resources */,
 				13B50ED119235F9800AB0A7A /* Icon-Spotlight-iOS7@2x.png in Resources */,
