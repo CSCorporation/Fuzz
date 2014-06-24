@@ -380,6 +380,7 @@
         [_ropeLines removeObject:tempSprite];
         
     }
+    NSLog(@"BRADICA");
     CutAdjacentWeapon *cutWeapon = [[_level weapons]objectAtIndex:1];
     [_noOfAdjacentCutsLabel setString:[NSString stringWithFormat:@"%d",[cutWeapon stockNumber]]];
     [[cutWeapon adjacentIndices]removeAllObjects];
