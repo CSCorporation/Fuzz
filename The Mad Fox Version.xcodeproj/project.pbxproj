@@ -8,12 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		09368E511934C71900138404 /* Position.m in Sources */ = {isa = PBXBuildFile; fileRef = 09368E501934C71900138404 /* Position.m */; };
+		098369B719599491005CA73A /* ElasticLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 098369B619599491005CA73A /* ElasticLine.m */; };
+		098369BA195996AA005CA73A /* pathLine.plist in Resources */ = {isa = PBXBuildFile; fileRef = 098369B8195996AA005CA73A /* pathLine.plist */; };
+		098369BB195996AA005CA73A /* pathLine.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369B9195996AA005CA73A /* pathLine.png */; };
+		098369CC19599936005CA73A /* bistar-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369BC19599936005CA73A /* bistar-ipad.png */; };
+		098369CD19599936005CA73A /* expand-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369BD19599936005CA73A /* expand-ipad.png */; };
+		098369CE19599936005CA73A /* hintSprit-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369BE19599936005CA73A /* hintSprit-ipad.png */; };
+		098369CF19599936005CA73A /* hintSprite-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369BF19599936005CA73A /* hintSprite-ipad.png */; };
+		098369D019599936005CA73A /* levelstain-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C019599936005CA73A /* levelstain-ipad.png */; };
+		098369D119599936005CA73A /* line-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C119599936005CA73A /* line-ipad.png */; };
+		098369D219599936005CA73A /* locker-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C219599936005CA73A /* locker-ipad.png */; };
+		098369D319599936005CA73A /* menuwall-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C319599936005CA73A /* menuwall-ipad.png */; };
+		098369D419599936005CA73A /* shopSprite-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C419599936005CA73A /* shopSprite-ipad.png */; };
+		098369D519599936005CA73A /* stain-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C519599936005CA73A /* stain-ipad.png */; };
+		098369D619599936005CA73A /* stain2-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C619599936005CA73A /* stain2-ipad.png */; };
+		098369D719599936005CA73A /* stain3-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C719599936005CA73A /* stain3-ipad.png */; };
+		098369D819599936005CA73A /* wall-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C819599936005CA73A /* wall-ipad.png */; };
+		098369D919599936005CA73A /* weaponContainerSprite-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369C919599936005CA73A /* weaponContainerSprite-ipad.png */; };
+		098369DA19599936005CA73A /* weaponCountSprite-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369CA19599936005CA73A /* weaponCountSprite-ipad.png */; };
+		098369DB19599936005CA73A /* weaponSprite-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 098369CB19599936005CA73A /* weaponSprite-ipad.png */; };
 		09904A6119337332007DE91D /* MapPoint.m in Sources */ = {isa = PBXBuildFile; fileRef = 09904A6019337332007DE91D /* MapPoint.m */; };
 		09B4CC8C19597275002726F6 /* maina.wav in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC3B19597275002726F6 /* maina.wav */; };
 		09B4CC8D19597275002726F6 /* Sansani Fonts - Cartwheel.otf in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC3D19597275002726F6 /* Sansani Fonts - Cartwheel.otf */; };
 		09B4CC8E19597275002726F6 /* bistar-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4119597275002726F6 /* bistar-ipadhd.png */; };
 		09B4CC8F19597275002726F6 /* expand-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4219597275002726F6 /* expand-ipadhd.png */; };
-		09B4CC9019597275002726F6 /* fur2-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4319597275002726F6 /* fur2-ipadhd.png */; };
 		09B4CC9119597275002726F6 /* hintSprit-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4419597275002726F6 /* hintSprit-ipadhd.png */; };
 		09B4CC9219597275002726F6 /* hintSprite-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4519597275002726F6 /* hintSprite-ipadhd.png */; };
 		09B4CC9319597275002726F6 /* levelstain-ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = 09B4CC4619597275002726F6 /* levelstain-ipadhd.png */; };
@@ -374,13 +392,32 @@
 /* Begin PBXFileReference section */
 		09368E4F1934C71800138404 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = "<group>"; };
 		09368E501934C71900138404 /* Position.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Position.m; sourceTree = "<group>"; };
+		098369B519599491005CA73A /* ElasticLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ElasticLine.h; sourceTree = "<group>"; };
+		098369B619599491005CA73A /* ElasticLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ElasticLine.m; sourceTree = "<group>"; };
+		098369B8195996AA005CA73A /* pathLine.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = pathLine.plist; sourceTree = "<group>"; };
+		098369B9195996AA005CA73A /* pathLine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pathLine.png; sourceTree = "<group>"; };
+		098369BC19599936005CA73A /* bistar-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bistar-ipad.png"; sourceTree = "<group>"; };
+		098369BD19599936005CA73A /* expand-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expand-ipad.png"; sourceTree = "<group>"; };
+		098369BE19599936005CA73A /* hintSprit-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hintSprit-ipad.png"; sourceTree = "<group>"; };
+		098369BF19599936005CA73A /* hintSprite-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hintSprite-ipad.png"; sourceTree = "<group>"; };
+		098369C019599936005CA73A /* levelstain-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelstain-ipad.png"; sourceTree = "<group>"; };
+		098369C119599936005CA73A /* line-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line-ipad.png"; sourceTree = "<group>"; };
+		098369C219599936005CA73A /* locker-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locker-ipad.png"; sourceTree = "<group>"; };
+		098369C319599936005CA73A /* menuwall-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menuwall-ipad.png"; sourceTree = "<group>"; };
+		098369C419599936005CA73A /* shopSprite-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shopSprite-ipad.png"; sourceTree = "<group>"; };
+		098369C519599936005CA73A /* stain-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stain-ipad.png"; sourceTree = "<group>"; };
+		098369C619599936005CA73A /* stain2-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stain2-ipad.png"; sourceTree = "<group>"; };
+		098369C719599936005CA73A /* stain3-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stain3-ipad.png"; sourceTree = "<group>"; };
+		098369C819599936005CA73A /* wall-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wall-ipad.png"; sourceTree = "<group>"; };
+		098369C919599936005CA73A /* weaponContainerSprite-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weaponContainerSprite-ipad.png"; sourceTree = "<group>"; };
+		098369CA19599936005CA73A /* weaponCountSprite-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weaponCountSprite-ipad.png"; sourceTree = "<group>"; };
+		098369CB19599936005CA73A /* weaponSprite-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "weaponSprite-ipad.png"; sourceTree = "<group>"; };
 		09904A5F19337332007DE91D /* MapPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapPoint.h; sourceTree = "<group>"; };
 		09904A6019337332007DE91D /* MapPoint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapPoint.m; sourceTree = "<group>"; };
 		09B4CC3B19597275002726F6 /* maina.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = maina.wav; sourceTree = "<group>"; };
 		09B4CC3D19597275002726F6 /* Sansani Fonts - Cartwheel.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Sansani Fonts - Cartwheel.otf"; sourceTree = "<group>"; };
 		09B4CC4119597275002726F6 /* bistar-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bistar-ipadhd.png"; sourceTree = "<group>"; };
 		09B4CC4219597275002726F6 /* expand-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "expand-ipadhd.png"; sourceTree = "<group>"; };
-		09B4CC4319597275002726F6 /* fur2-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fur2-ipadhd.png"; sourceTree = "<group>"; };
 		09B4CC4419597275002726F6 /* hintSprit-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hintSprit-ipadhd.png"; sourceTree = "<group>"; };
 		09B4CC4519597275002726F6 /* hintSprite-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hintSprite-ipadhd.png"; sourceTree = "<group>"; };
 		09B4CC4619597275002726F6 /* levelstain-ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "levelstain-ipadhd.png"; sourceTree = "<group>"; };
@@ -1064,6 +1101,22 @@
 		09B4CC3F19597275002726F6 /* ipad */ = {
 			isa = PBXGroup;
 			children = (
+				098369BC19599936005CA73A /* bistar-ipad.png */,
+				098369BD19599936005CA73A /* expand-ipad.png */,
+				098369BE19599936005CA73A /* hintSprit-ipad.png */,
+				098369BF19599936005CA73A /* hintSprite-ipad.png */,
+				098369C019599936005CA73A /* levelstain-ipad.png */,
+				098369C119599936005CA73A /* line-ipad.png */,
+				098369C219599936005CA73A /* locker-ipad.png */,
+				098369C319599936005CA73A /* menuwall-ipad.png */,
+				098369C419599936005CA73A /* shopSprite-ipad.png */,
+				098369C519599936005CA73A /* stain-ipad.png */,
+				098369C619599936005CA73A /* stain2-ipad.png */,
+				098369C719599936005CA73A /* stain3-ipad.png */,
+				098369C819599936005CA73A /* wall-ipad.png */,
+				098369C919599936005CA73A /* weaponContainerSprite-ipad.png */,
+				098369CA19599936005CA73A /* weaponCountSprite-ipad.png */,
+				098369CB19599936005CA73A /* weaponSprite-ipad.png */,
 				09B4CCE1195972FB002726F6 /* fluffy-ipad.png */,
 				09B4CCDB195972CC002726F6 /* fluffyHillsDayBackground-ipad.png */,
 				09B4CCDC195972CC002726F6 /* fluffyHillsNightBackground-ipad.png */,
@@ -1081,7 +1134,6 @@
 				09B4CCD7195972C3002726F6 /* villain-ipadhd.png */,
 				09B4CC4119597275002726F6 /* bistar-ipadhd.png */,
 				09B4CC4219597275002726F6 /* expand-ipadhd.png */,
-				09B4CC4319597275002726F6 /* fur2-ipadhd.png */,
 				09B4CC4419597275002726F6 /* hintSprit-ipadhd.png */,
 				09B4CC4519597275002726F6 /* hintSprite-ipadhd.png */,
 				09B4CC4619597275002726F6 /* levelstain-ipadhd.png */,
@@ -1117,6 +1169,8 @@
 		09B4CC5419597275002726F6 /* Temporary Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				098369B8195996AA005CA73A /* pathLine.plist */,
+				098369B9195996AA005CA73A /* pathLine.png */,
 				09B4CC5519597275002726F6 /* 1.png */,
 				09B4CC5619597275002726F6 /* alertbody.png */,
 				09B4CC5719597275002726F6 /* arrow.png */,
@@ -1215,6 +1269,8 @@
 				13E4A110192DCED800098F15 /* AlertViewHelper.m */,
 				1394D24D193F3C8900B82685 /* LineView.h */,
 				1394D24E193F3C8900B82685 /* LineView.m */,
+				098369B519599491005CA73A /* ElasticLine.h */,
+				098369B619599491005CA73A /* ElasticLine.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -2343,22 +2399,26 @@
 				13BEAB2D1936FB01007E35FE /* vg_mute_off.png in Resources */,
 				13B50EBB19235F9800AB0A7A /* Icon@2x.png in Resources */,
 				09B4CC8D19597275002726F6 /* Sansani Fonts - Cartwheel.otf in Resources */,
+				098369D519599936005CA73A /* stain-ipad.png in Resources */,
 				13B50ECD19235F9800AB0A7A /* Icon-Small@2x.png in Resources */,
 				09B4CCB719597275002726F6 /* freezeButtonHover.png in Resources */,
+				098369D319599936005CA73A /* menuwall-ipad.png in Resources */,
 				09B4CC9419597275002726F6 /* line-ipadhd.png in Resources */,
 				13BEAB2E1936FB01007E35FE /* vg_mute_on.png in Resources */,
 				13B50EBF19235F9800AB0A7A /* Icon-72@2x.png in Resources */,
 				13B50EB019235F9800AB0A7A /* Default.png in Resources */,
 				09B4CCA519597275002726F6 /* bubblegray.png in Resources */,
 				09B4CCAE19597275002726F6 /* dummyButton.png in Resources */,
-				09B4CC9019597275002726F6 /* fur2-ipadhd.png in Resources */,
 				09B4CC8C19597275002726F6 /* maina.wav in Resources */,
+				098369CC19599936005CA73A /* bistar-ipad.png in Resources */,
 				13B50EB919235F9800AB0A7A /* Icon.png in Resources */,
 				09B4CC9F19597275002726F6 /* 1.png in Resources */,
 				09B4CC9E19597275002726F6 /* weaponSprite-ipadhd.png in Resources */,
 				13B50EC719235F9800AB0A7A /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
+				098369D919599936005CA73A /* weaponContainerSprite-ipad.png in Resources */,
 				13B50EB619235F9800AB0A7A /* Default-Landscape~ipad.png in Resources */,
 				09B4CCB019597275002726F6 /* facebookLike.jpg in Resources */,
+				098369D419599936005CA73A /* shopSprite-ipad.png in Resources */,
 				09B4CC9119597275002726F6 /* hintSprit-ipadhd.png in Resources */,
 				09B4CCCC19597275002726F6 /* level_11.xml in Resources */,
 				09B4CCC519597275002726F6 /* square2.png in Resources */,
@@ -2366,18 +2426,24 @@
 				09B4CCC119597275002726F6 /* pathContainer.png in Resources */,
 				09B4CCC319597275002726F6 /* shareFacebook.png in Resources */,
 				09B4CCCB19597275002726F6 /* level_10.xml in Resources */,
+				098369BA195996AA005CA73A /* pathLine.plist in Resources */,
 				09B4CCCA19597275002726F6 /* level_1.xml in Resources */,
 				09B4CCE0195972CC002726F6 /* villain-ipad.png in Resources */,
 				13B50EC919235F9800AB0A7A /* Icon-Small-50.png in Resources */,
 				09B4CCAB19597275002726F6 /* cutAdjacentButtonHover.png in Resources */,
 				138054A91940941F000AC940 /* database.plist in Resources */,
 				13BEAB2C1936FB01007E35FE /* vg_cta.png in Resources */,
+				098369CE19599936005CA73A /* hintSprit-ipad.png in Resources */,
 				09B4CCB619597275002726F6 /* freezeButton.png in Resources */,
 				09B4CCDE195972CC002726F6 /* fluffyHillsDayBackground-ipad.png in Resources */,
+				098369D819599936005CA73A /* wall-ipad.png in Resources */,
 				13B510B219235F9900AB0A7A /* LICENSE_Kazmath.txt in Resources */,
 				09B4CCD019597275002726F6 /* level_5.xml in Resources */,
 				13B50EBD19235F9800AB0A7A /* Icon-72.png in Resources */,
 				09B4CCD219597275002726F6 /* level_7.xml in Resources */,
+				098369CF19599936005CA73A /* hintSprite-ipad.png in Resources */,
+				098369BB195996AA005CA73A /* pathLine.png in Resources */,
+				098369D119599936005CA73A /* line-ipad.png in Resources */,
 				09B4CCB919597275002726F6 /* great.png in Resources */,
 				09B4CC9819597275002726F6 /* stain-ipadhd.png in Resources */,
 				09B4CCA119597275002726F6 /* arrow.png in Resources */,
@@ -2399,13 +2465,17 @@
 				09B4CC8F19597275002726F6 /* expand-ipadhd.png in Resources */,
 				09B4CCC019597275002726F6 /* path_example2_2.png in Resources */,
 				09B4CC9319597275002726F6 /* levelstain-ipadhd.png in Resources */,
+				098369CD19599936005CA73A /* expand-ipad.png in Resources */,
 				09B4CCBD19597275002726F6 /* hint.png in Resources */,
+				098369DB19599936005CA73A /* weaponSprite-ipad.png in Resources */,
 				13B50EC319235F9800AB0A7A /* Icon-76@2x.png in Resources */,
 				09B4CCA019597275002726F6 /* alertbody.png in Resources */,
 				13B5113719235F9A00AB0A7A /* LICENSE_Chipmunk.txt in Resources */,
 				09B4CCA819597275002726F6 /* chapter3.jpg in Resources */,
+				098369D719599936005CA73A /* stain3-ipad.png in Resources */,
 				09B4CC9519597275002726F6 /* locker-ipadhd.png in Resources */,
 				09B4CCD119597275002726F6 /* level_6.xml in Resources */,
+				098369DA19599936005CA73A /* weaponCountSprite-ipad.png in Resources */,
 				13BEAB2F1936FB01007E35FE /* vg_timer.png in Resources */,
 				09B4CCE419597307002726F6 /* fluffy-ipadhd.png in Resources */,
 				09B4CCA619597275002726F6 /* chapter1.jpg in Resources */,
@@ -2413,6 +2483,7 @@
 				09B4CCAD19597275002726F6 /* defaultButtonHover.png in Resources */,
 				09B4CCDA195972C3002726F6 /* villain-ipadhd.png in Resources */,
 				09B4CCB219597275002726F6 /* fake_bird.png in Resources */,
+				098369D019599936005CA73A /* levelstain-ipad.png in Resources */,
 				09B4CCD9195972C3002726F6 /* fluffyHillsNightBackground-ipadhd.png in Resources */,
 				09B4CCAA19597275002726F6 /* cutAdjacentButton.png in Resources */,
 				09B4CCCE19597275002726F6 /* level_3.xml in Resources */,
@@ -2420,6 +2491,7 @@
 				09B4CCC219597275002726F6 /* rate.png in Resources */,
 				09B4CCD319597275002726F6 /* level_8.xml in Resources */,
 				09B4CCB519597275002726F6 /* foxSprite.png in Resources */,
+				098369D619599936005CA73A /* stain2-ipad.png in Resources */,
 				09B4CCCD19597275002726F6 /* level_2.xml in Resources */,
 				13B50ED119235F9800AB0A7A /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				09B4CC9A19597275002726F6 /* stain3-ipadhd.png in Resources */,
@@ -2430,6 +2502,7 @@
 				09B4CC9D19597275002726F6 /* weaponCountSprite-ipadhd.png in Resources */,
 				09B4CC9C19597275002726F6 /* weaponContainerSprite-ipadhd.png in Resources */,
 				13B50EC119235F9800AB0A7A /* Icon-76.png in Resources */,
+				098369D219599936005CA73A /* locker-ipad.png in Resources */,
 				13B5109719235F9900AB0A7A /* ChangeLog in Resources */,
 				13B50ED619235F9800AB0A7A /* iTunesArtwork@2x in Resources */,
 			);
@@ -2599,6 +2672,7 @@
 				13B510B919235F9900AB0A7A /* CCBKeyframe.m in Sources */,
 				13B5107319235F9900AB0A7A /* CCControlTextureFactory.m in Sources */,
 				13B50EF819235F9800AB0A7A /* CCAnimationCache.m in Sources */,
+				098369B719599491005CA73A /* ElasticLine.m in Sources */,
 				13B5107C19235F9900AB0A7A /* CCTableView.m in Sources */,
 				1301AC5919249C4C002C373B /* Fox.m in Sources */,
 				13B5113F19235F9A00AB0A7A /* AppDelegate.m in Sources */,

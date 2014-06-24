@@ -80,7 +80,7 @@
 -(CCScene *)startScene
 {
 	// This method should return the very first scene to be run when your app starts.
-	return [MenuController scene];
+	return [PlayController sceneWithLevelNumber:4];
 }
 //- (void)applicationDidEnterBackground:(UIApplication *)application
 //{

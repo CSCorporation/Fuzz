@@ -27,7 +27,7 @@
 
 #import "CCSprite9Slice.h"
 #import "CCTexture_Private.h"
-
+#import "CCDrawingPrimitives.h"
 // ---------------------------------------------------------------------
 
 const float CCSprite9SliceMarginDefault         = 1.0f/3.0f;

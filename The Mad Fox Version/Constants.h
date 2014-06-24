@@ -29,6 +29,7 @@ static NSString* fontInTheGame = @"Cartwheel";
 // ****************** FONTS ****************** //
 // ******************************************* //
 
+static int DEBUG_DRAW =1;
 //BACK BUTTON ALL VIEWS
 static NSString* BackButtonTitle = @"Back";
 static int BackButtonFontSize = 30;
@@ -135,9 +136,9 @@ static NSString* FreezeWeaponTitle = @"FreezyFox";
 
 //Fox Character
 static NSString* FoxPlist = @"foxSprite.plist";
-static NSString* FoxSpriteSheet = @"foxSprite.png";
+static NSString* VillainSpriteSheet = @"villain.png";
 static NSString* FoxFrames = @"fox%d.png";
-static NSString* FoxFirstFrame = @"fox1.png";
+static NSString* FoxFirstFrame = @"villain.png";
 
 //Path Sprite
 static NSString* StartPointSprite = @"test.png";
@@ -146,9 +147,9 @@ static NSString* PathSprite = @"line.png";
 
 //Chicken Character
 static NSString* ChickenPlist = @"sprites.plist";
-static NSString* ChickenSpriteSheet = @"sprites.png";
+static NSString* ChickenSpriteSheet = @"fluffy.png";
 static NSString* ChickenFrames = @"%d.png";
-static NSString* ChickenFirstFrame = @"1.png";
+static NSString* ChickenFirstFrame = @"fluffy.png";
 
 //******************GAME OVER VIEW******************//
 static NSString* GameOverBackground = @"wall.png";

@@ -24,7 +24,7 @@
 #import "CCAnimation.h"
 #import "UserDefaultsUtils.h"
 #import "AlertViewHelper.h"
-
+#import "ElasticLine.h"
 #define kNearZeroValue 0.001f
 
 @implementation PlayView
@@ -55,7 +55,7 @@
         [self addChild:_currentWeapon z:31];
         
         _points = [_level points];
-        _spriteLines = [[NSMutableArray alloc]initWithCapacity:[_points count]];
+        _ropeLines = [[NSMutableArray alloc]initWithCapacity:[_points count]];
         _spritePoints = [[NSMutableArray alloc]init];
         
         CCButton *quitButton = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:@"close-button.png"]];
@@ -108,18 +108,20 @@
         
         _numberOfHints = [[UserDefaultsUtils sharedInstance]getHints];
         
-        //CCSprite* background = [CCSprite spriteWithImageNamed:PlayBackground];
-        //background.anchorPoint = CGPointMake(0, 0);
-        //[self addChild:background];
-        
-        CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor whiteColor]];
+        CCSprite* background = [CCSprite spriteWithImageNamed:@"fluffyHillsDayBackground.png"];
+        background.anchorPoint = CGPointMake(0, 0);
         [self addChild:background];
         
+        /*CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor whiteColor]];
+        [self addChild:background];*/
+        
         [_delegate hintAction];
-
-        _pathContainer = [CCSprite spriteWithImageNamed:PathContainerSprite];
-        _pathContainer.position = ccp(_pathContainer.contentSize.width/2, _pathContainer.contentSize.height/2);
-        [self addChild:_pathContainer];
+        //PHYSICS INIT
+        _physiscs = [CCPhysicsNode node];
+        _physiscs.gravity = ccp(0, -900);
+        [self addChild:_physiscs];
+        //_physiscs.debugDraw = true;
+        //END PHYSICS INIT
         [self drawAllLines];
 
         _defaultWeaponButton = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:DefaultWeaponSprite] highlightedSpriteFrame:[CCSpriteFrame frameWithImageNamed:DefaultWeaponHighlightedSprite] disabledSpriteFrame:nil];
@@ -170,17 +172,17 @@
         _noOfFreezesLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[[[_level weapons]objectAtIndex:3] stockNumber]] fontName:fontInTheGame fontSize:FreezeFoxCounterFontSize];
         _noOfFreezesLabel.position = ccp(FreezeFoxCounterX, FreezeFoxCounterY);
         
-        [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:FoxPlist];
-        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:FoxSpriteSheet];
+        //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:FoxPlist];
+        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:VillainSpriteSheet];
         
         [self addChild:spriteSheet];
-        NSMutableArray *tempWalkAnimFrames = [NSMutableArray array];
+        /*NSMutableArray *tempWalkAnimFrames = [NSMutableArray array];
         for (int i=1; i<=3; i++) {
             [tempWalkAnimFrames addObject:
              [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
               [NSString stringWithFormat:FoxFrames,i]]];
         }
-        self.walkAnimFrames = tempWalkAnimFrames;
+        self.walkAnimFrames = tempWalkAnimFrames;*/
         self.foxSpritesDictionary = [NSMutableDictionary dictionary];
         NSArray *foxesList = [[_level foxesDictionary]allValues];
         for (Fox *fox in foxesList) {
@@ -190,7 +192,7 @@
             foxSprite.position = foxPosition;
             [foxSprite setRotationalSkewY:fox.rotation];
             [foxSprite setScale:1];
-            [self resizeSprite:foxSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
+            //[self resizeSprite:foxSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
             [_foxSpritesDictionary setObject:foxSprite forKey:[fox keyIndex]];
             [spriteSheet addChild:foxSprite];
         }
@@ -217,6 +219,7 @@
     [_delegate quitGame];
 }
 -(void)drawAllLines{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pathLine.plist"];
     for(int i=0;i<[_points count];i++){
         CGPoint startPoint = [[_points objectAtIndex:i] startPoint];
         CGPoint endPoint = [[_points objectAtIndex:i] endPoint];
@@ -226,8 +229,8 @@
         [self resizeSprite:endPointImg toWidth:23 toHeight:23];
         startPointImg.position = startPoint;
         endPointImg.position = endPoint;
-        [_pathContainer addChild:startPointImg z:40];
-        [_pathContainer addChild:endPointImg z:40];
+        [self addChild:startPointImg z:40];
+        [self addChild:endPointImg z:40];
         if(![self isPointUsed:startPoint]) {
             NSString *index = [[PointUtils sharedInstance]keyForPosition:startPoint];
             CCLabelTTF *lbl = [CCLabelTTF labelWithString:index fontName:@"Arial" fontSize:70];
@@ -244,8 +247,11 @@
 //             [self addChild:lbl z:100];
             [_spritePoints addObject:endPointImg];
         }
-        [self drawLine:startPoint pointB:endPoint];
-
+        
+        //[self drawLine:startPoint pointB:endPoint];
+        ElasticLine *elasticLine = [[ElasticLine alloc]initWithSegments:7 objectA:nil posA:startPoint objectB:nil posB:endPoint];
+        [_physiscs addChild:elasticLine];
+        [_ropeLines addObject:elasticLine];
     }
 }
 -(void)moveFoxes{
@@ -285,21 +291,21 @@
     if(sprite.position.x != endPoint && sprite.position.y != point.y){
         float w = fabsf(spritePoint - endPoint);
         float h = fabsf(sprite.position.y - point.y);
-        time = fabsf(sqrtf((w*w)+(h*h))) / (_pathContainer.contentSize.width/3);
+        time = fabsf(sqrtf((w*w)+(h*h))) / (self.contentSize.width/3);
     }
     else
-        time = fabsf((spritePoint - endPoint) + (sprite.position.y - point.y)) / (_pathContainer.contentSize.width / 3);
+        time = fabsf((spritePoint - endPoint) + (sprite.position.y - point.y)) / (self.contentSize.width / 3);
     CCActionMoveTo *actionMove = [CCActionMoveTo actionWithDuration:time position:point];
-    CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:_walkAnimFrames delay:0.05f];
+    /*CCAnimation *walkAnim = [CCAnimation animationWithSpriteFrames:_walkAnimFrames delay:0.05f];
     
     CCAction *walkAction = [CCActionRepeatForever actionWithAction:
                             [CCActionAnimate actionWithAnimation:walkAnim]];
     
-    [sprite runAction:walkAction];
+    [sprite runAction:walkAction];*/
     
     
     CCActionCallBlock *actionMoveDone = [CCActionCallBlock actionWithBlock:^{
-        [sprite stopAction:walkAction];
+        //[sprite stopAction:walkAction];
         NSArray *chickenList = [[_level chickenDictionary] allValues];
         NSMutableArray *chickenListKeys = [[NSMutableArray alloc]init];
         for (int i=0; i<[chickenList count]; i++) {
@@ -312,7 +318,7 @@
                 NSString *keyIndex = [chickenSpritesKeysList objectAtIndex:i];
                 if (![chickenListKeys containsObject:keyIndex]) {
                     CCSprite *dummyChickenSprite = [_chickenSpritesDictionary objectForKey:keyIndex];
-                    [_pathContainer removeChild:dummyChickenSprite];
+                    [self removeChild:dummyChickenSprite];
                     [_chickenSpritesDictionary removeObjectForKey:keyIndex];
                 }
             }
@@ -340,8 +346,8 @@
     CGFloat firstRotateAngle = -ccpToAngle(firstVector);
     CGFloat previousTouch = CC_RADIANS_TO_DEGREES(firstRotateAngle);
     [line setRotation:previousTouch];
-    [_spriteLines addObject:line];
-    [_pathContainer addChild:line];
+    [_ropeLines addObject:line];
+    [self addChild:line];
     
 }
 -(void)resizeSprite:(CCSprite*)sprite toWidth:(float)width toHeight:(float)height {
@@ -361,17 +367,17 @@
     return false;
 }
 -(void)removePathFromModel:(int)index{
-    CCSprite *tempSprite = [_spriteLines objectAtIndex:index];
-    [_pathContainer removeChild:tempSprite];
-    [_spriteLines removeObject:tempSprite];
+    ElasticLine *tempSprite = [_ropeLines objectAtIndex:index];
+    [_physiscs removeChild:tempSprite];
+    [_ropeLines removeObject:tempSprite];
     [self buttonPressed];
 }
 -(void)cutAdjacentPaths:(NSMutableArray *)indices{
     for (NSNumber *indexNumber in indices) {
         int index = [indexNumber intValue];
-        CCSprite *tempSprite = [_spriteLines objectAtIndex:index];
-        [_pathContainer removeChild:tempSprite];
-        [_spriteLines removeObject:tempSprite];
+        CCSprite *tempSprite = [_ropeLines objectAtIndex:index];
+        [_physiscs removeChild:tempSprite];
+        [_ropeLines removeObject:tempSprite];
         
     }
     CutAdjacentWeapon *cutWeapon = [[_level weapons]objectAtIndex:1];
@@ -401,7 +407,7 @@
         CCSprite *dummyChickenSprite = [CCSprite spriteWithImageNamed:[dummyChicken filename]];
         [_chickenSpritesDictionary setObject:dummyChickenSprite forKey:[dummyChicken keyIndex]];
         dummyChickenSprite.position = dummyChicken.position;
-        [_pathContainer addChild:dummyChickenSprite];
+        [self addChild:dummyChickenSprite];
         DummyChickenWeapon *dummyWeapon = [[_level weapons]objectAtIndex:2];
         [_noOfDummyPlacementsLabel setString:[NSString stringWithFormat:@"%d",[dummyWeapon stockNumber]]];
         if([dummyWeapon stockNumber] == 0)
@@ -495,17 +501,17 @@
 -(void)animateTheChicken {
     if([[_level chickenDictionary]count] == 0)
         return;
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:ChickenPlist];
+    //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:ChickenPlist];
     CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:ChickenSpriteSheet];
     [self addChild:spriteSheet];
-    NSMutableArray *tempChickAnimFrames = [NSMutableArray array];
+    /*NSMutableArray *tempChickAnimFrames = [NSMutableArray array];
     for (int i=1; i<=5; i++) {
         [tempChickAnimFrames addObject:
          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:
           [NSString stringWithFormat:ChickenFrames,i]]];
         
     }
-    self.eatAnimFrames = tempChickAnimFrames;
+    self.eatAnimFrames = tempChickAnimFrames;*/
     self.chickenSpritesDictionary = [NSMutableDictionary dictionary];
 
     NSArray *chickenList = [[_level chickenDictionary] allValues];
@@ -515,14 +521,14 @@
         chickenPosition.y = chickenPosition.y +5;
         chickenSprite.position = chickenPosition;
         [chickenSprite setScale:1];
-        [self resizeSprite:chickenSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
+//        /[self resizeSprite:chickenSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
         [_chickenSpritesDictionary setObject:chickenSprite forKey:[chicken keyIndex]];
         [spriteSheet addChild:chickenSprite];
     }
     [self schedule:@selector(runChickenActions) interval:6.0];
 }
 -(void)runChickenActions {
-    NSArray *chickenSpritesList = [_chickenSpritesDictionary allValues];
+    /*NSArray *chickenSpritesList = [_chickenSpritesDictionary allValues];
     NSArray *chickenList = [[_level chickenDictionary] allValues];
     for (int  i=0; i<[chickenSpritesList count]; i++) {
         Chicken *chicken = [chickenList objectAtIndex:i];
@@ -534,7 +540,7 @@
         CCAction *walkAction = [CCActionRepeat actionWithAction:
                                 [CCActionAnimate actionWithAnimation:walkAnim] times:1];
         [chickenSprite runAction:walkAction];
-    }
+    }*/
 }
 - (void)onEnter {
     [super onEnter];
@@ -544,36 +550,7 @@
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
     
     CGPoint location = [self convertTouchToNodeSpace:touch];
-    if([[_level currentWeapon] isKindOfClass:[DefaultWeapon class]]){
-        
-        for(int i = 0; i <[_spriteLines count];i++)
-        {
-            // NSLog(@"Array number: %d",_lineArray.count);
-            CCSprite *spriteT = [_spriteLines objectAtIndex:i];
-            
-            CGRect bbox = CGRectMake(0, 0, spriteT.contentSize.width, spriteT.contentSize.height);
-            CGPoint newTouchLocation = [spriteT convertToNodeSpace:location];
-            
-            if(CGRectContainsPoint(bbox, newTouchLocation))
-            {
-                //[_delegate removePath:[_points objectAtIndex:i]];
-                //[[_points objectAtIndex:i] setColor:[UIColor redColor]];
-                CCTexture* tex = [CCTexture textureWithFile:@"path_example2_2.png"];
-                [[_spriteLines objectAtIndex:i] setTexture: tex];
-                break;
-            }
-        }
-    }
-    else {
-        for(CCSprite *pointSprite in _spritePoints){
-            CGRect pointRect = [pointSprite boundingBox];
-            
-            if(CGRectContainsPoint(pointRect, location)){
-                [_delegate specialWeaponAction:[pointSprite position]];
-                break;
-            }
-        }
-    }
+    
     
     CGRect expandBox = CGRectMake(0, 0, _currentWeapon.contentSize.width, _currentWeapon.contentSize.height);
     CGPoint touchLocation = [_currentWeapon convertToNodeSpace:location];
@@ -606,21 +583,27 @@
     
     if([[_level currentWeapon] isKindOfClass:[DefaultWeapon class]]){
         
-        for(int i = 0; i <[_spriteLines count];i++)
+        for(int i = 0; i <[_ropeLines count];i++)
         {
             CCTexture* tex = [CCTexture textureWithFile:@"line.png"];
-            [[_spriteLines objectAtIndex:i] setTexture: tex];
             // NSLog(@"Array number: %d",_lineArray.count);
-            CCSprite *spriteT = [_spriteLines objectAtIndex:i];
+            ElasticLine *spriteT = [_ropeLines objectAtIndex:i];
             
-            CGRect bbox = CGRectMake(0, 0, spriteT.contentSize.width, spriteT.contentSize.height);
-            CGPoint newTouchLocation = [spriteT convertToNodeSpace:location];
             
-            if(CGRectContainsPoint(bbox, newTouchLocation))
-            {
-                [_delegate removePath:[_points objectAtIndex:i]];
-                break;
+            
+            NSArray  *dsdd = [spriteT children];
+            NSArray *segmentList = [spriteT segmentList];
+            for (int j=0;j<[segmentList count]; j++) {
+                CCSprite *segment = [segmentList objectAtIndex:j];
+                CGRect bbox = CGRectMake(0, 0, segment.boundingBox.size.width, segment.boundingBox.size.height);
+                CGPoint newTouchLocation = [segment convertToNodeSpace:location];
+                if(CGRectContainsPoint(bbox, newTouchLocation))
+                {
+                    [_delegate removePath:[_points objectAtIndex:i]];
+                    break;
+                }
             }
+            
         }
     }
     else {

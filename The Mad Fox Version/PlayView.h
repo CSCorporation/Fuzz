@@ -27,7 +27,7 @@
     id<PlayDelegate> _delegate;
     
     NSMutableArray *_points;
-    NSMutableArray *_spriteLines;
+    NSMutableArray *_ropeLines;
     NSMutableArray *_spritePoints;
     NSMutableArray *_walkAnimFrames;
     NSMutableArray *_eatAnimFrames;
@@ -35,7 +35,6 @@
     NSMutableDictionary *_foxSpritesDictionary;
     NSMutableDictionary *_chickenSpritesDictionary;
     
-    CCSprite *_pathContainer;
     CCSprite *_weaponContainer;
     CCSprite *_arrowImage;
     CCSprite *_hintSprite;
@@ -62,6 +61,8 @@
     CCButton *_freezeButton;
     CCButton *_activateHint; //Use hint
     CCButton *_getMoreHints; //Go to shop
+    
+    CCPhysicsNode *_physiscs;
 
     bool _isVisible;
     CGSize _winSize;
