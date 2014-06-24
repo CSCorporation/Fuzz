@@ -35,7 +35,7 @@
     NSMutableArray *_hintFoxVerticesList = [_foxVerticesList mutableCopy];
     NSMutableArray *edgeListCopy = [_edges mutableCopy];
     NSArray *verticesList = [_verticesDictionary allValues];
-    _freezeFoxesList = [_foxVerticesList mutableCopy];
+    _frozenFoxesList = [[NSMutableArray alloc]init];
     [edgeListCopy sortUsingComparator:^NSComparisonResult(Edge *edgeA, Edge *edgeB) {
         int edgeAWeight = [edgeA weight];
         int edgeBWeight = [edgeB weight];
@@ -51,7 +51,8 @@
     }];
     if([_hintList count] > 0)
         [_hintList removeAllObjects];
-    [self findHint:0 foxVerticesList:_hintFoxVerticesList edgeList:edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:0 cutAdjUsed:false noOfFreezes:1 freezeUsed:false noOfFakeChickens:0 fakeChickenUsed:false toolVertex:nil lastEdge:nil weaponEnumeration:(bool)true weaponIndex:0];
+    NSMutableArray *usedToolsList = [[NSMutableArray alloc]init];
+    [self findHint:0 foxVerticesList:_hintFoxVerticesList edgeList:edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:3 cutAdjUsed:false noOfFreezes:3 freezeUsed:false noOfFakeChickens:3 fakeChickenUsed:false usedToolsList:usedToolsList lastEdge:nil weaponEnumeration:(bool)true weaponIndex:0];
     
     if (_hintList == nil) {
         CCLOG(@"No solution");
@@ -70,7 +71,7 @@
      
      }*/
 }
--(void)findHint:(int)foxVertexIndex foxVerticesList:(NSMutableArray*)foxVerticesList edgeList:(NSMutableArray*)edgeList edgeIndex:(int)edgeIndex verticesList:(NSArray*)verticesList vertexIndex:(int)vertexIndex noOfCutAdjacent:(int)cutAdjNumber cutAdjUsed:(bool)cutAdjUsed noOfFreezes:(int)noOfFreezes freezeUsed:(bool)freezeUsed noOfFakeChickens:(int)noOfFakeChickens fakeChickenUsed:(bool)fakeChickenUsed toolVertex:(Vertex*)toolVertex lastEdge:(Edge*)lastEdge weaponEnumeration:(bool)weaponEnumeration weaponIndex:(int)weaponIndex{
+-(void)findHint:(int)foxVertexIndex foxVerticesList:(NSMutableArray*)foxVerticesList edgeList:(NSMutableArray*)edgeList edgeIndex:(int)edgeIndex verticesList:(NSArray*)verticesList vertexIndex:(int)vertexIndex noOfCutAdjacent:(int)cutAdjNumber cutAdjUsed:(bool)cutAdjUsed noOfFreezes:(int)noOfFreezes freezeUsed:(bool)freezeUsed noOfFakeChickens:(int)noOfFakeChickens fakeChickenUsed:(bool)fakeChickenUsed usedToolsList:(NSMutableArray*)usedToolsList lastEdge:(Edge*)lastEdge weaponEnumeration:(bool)weaponEnumeration weaponIndex:(int)weaponIndex{
     
     if(foxVerticesList==nil){
         if([_hintList count] > [_currentHintSteps count] || [_hintList count] == 0){
@@ -97,29 +98,29 @@
         return;
     }
     if(weaponEnumeration) {
-        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:edgeIndex verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=nil lastEdge:lastEdge=nil weaponEnumeration:weaponEnumeration weaponIndex:weaponIndex+1];
+        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:edgeIndex verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:weaponEnumeration weaponIndex:weaponIndex+1];
     }
     if(weaponIndex == 0){
-        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:edgeIndex+1 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=nil lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
+        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:edgeIndex+1 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
     }
     else if(weaponIndex == 1){
         if (cutAdjNumber == 0) {
             return;
         }
-        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:vertexIndex+1 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=nil lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
+        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:vertexIndex+1 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
     }
     else if(weaponIndex == 2){
         if (noOfFakeChickens == 0) {
             return;
         }
-        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:vertexIndex+1 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=nil lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
+        [self findHint:0 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:vertexIndex+1 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
     }
     else if(weaponIndex == 3){
         if (noOfFreezes == 0) {
             return;
         }
-      
-        [self findHint:foxVertexIndex+1 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=nil lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
+        
+        [self findHint:foxVertexIndex+1 foxVerticesList:foxVerticesList edgeList:edgeList edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:false weaponIndex:weaponIndex];
     }
     if(weaponIndex == 3) {
         Vertex *foxVertex = [foxVerticesList objectAtIndex:foxVertexIndex];
@@ -127,9 +128,20 @@
             return;
         }
         [_currentHintSteps addObject:[NSString stringWithFormat:@"Freeze fox at %@",[foxVertex keyIndex]]];
+        if ([_currentHintSteps count]==2) {
+            
+        }
         if([_hintList count] <= [_currentHintSteps count] && [_hintList count] != 0){
             [_currentHintSteps removeLastObject];
             return;
+        }
+        if ([usedToolsList count]>0) {
+            Vertex *vertex = [usedToolsList objectAtIndex:[usedToolsList count]-1];
+            if ([_frozenFoxesList containsObject:vertex]) {
+                if ([vertex hintNoFreezedTurns]==0) {
+                    [vertex setHintNoFreezedTurns:2];
+                }
+            }
         }
         [foxVertex setHintNoFreezedTurns:2];
         NSMutableArray *foxVerticeListCopy = [foxVerticesList mutableCopy];
@@ -148,7 +160,9 @@
                 return 0;
             }
         }];
-        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList:edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes-1 freezeUsed:freezeUsed=true noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=foxVertex lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
+        [_frozenFoxesList addObject:foxVertex];
+        [usedToolsList addObject:foxVertex];
+        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList:edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes-1 freezeUsed:freezeUsed=true noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
         
     }
     else if(weaponIndex == 2) {
@@ -160,6 +174,14 @@
         if([_hintList count] <= [_currentHintSteps count] && [_hintList count] != 0){
             [_currentHintSteps removeLastObject];
             return;
+        }
+        if ([usedToolsList count]>0) {
+            Vertex *vertex = [usedToolsList objectAtIndex:[usedToolsList count]-1];
+            if ([_frozenFoxesList containsObject:vertex]) {
+                if ([vertex hintNoFreezedTurns]==0) {
+                    [vertex setHintNoFreezedTurns:2];
+                }
+            }
         }
         [fakeChickenVertex setIsFakeChicken:true];
         [_chickensVerticesList addObject:fakeChickenVertex];
@@ -181,19 +203,31 @@
         }];
         NSMutableArray *verticesListCopy = [verticesList mutableCopy];
         [verticesListCopy removeObject:fakeChickenVertex];
-        
-        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesListCopy vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens-1 fakeChickenUsed:fakeChickenUsed=true toolVertex:toolVertex=fakeChickenVertex lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
+        [usedToolsList addObject:fakeChickenVertex];
+        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesListCopy vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens-1 fakeChickenUsed:fakeChickenUsed=true usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
         
     }
     else if(weaponIndex == 1){
+        
         Vertex *cutAdjVertex = [verticesList objectAtIndex:vertexIndex];
+        
         if ([foxVerticesList containsObject:cutAdjVertex] || [cutAdjVertex isChicken] || [cutAdjVertex isFakeChicken]) {
             return;
         }
+        
         [_currentHintSteps addObject:[NSString stringWithFormat:@"Cut adjacents to %@",[cutAdjVertex keyIndex]]];
         if([_hintList count] <= [_currentHintSteps count] && [_hintList count] != 0){
             [_currentHintSteps removeLastObject];
             return;
+        }
+        
+        if ([usedToolsList count]>0) {
+            Vertex *vertex = [usedToolsList objectAtIndex:[usedToolsList count]-1];
+            if ([_frozenFoxesList containsObject:vertex]) {
+                if ([vertex hintNoFreezedTurns]==0) {
+                    [vertex setHintNoFreezedTurns:2];
+                }
+            }
         }
         [self simCutAdjacent:cutAdjVertex edgeList:edgeList];
         NSMutableArray *foxVerticeListCopy = [foxVerticesList mutableCopy];
@@ -217,25 +251,35 @@
         }];
         NSMutableArray *verticesListCopy = [verticesList mutableCopy];
         [verticesListCopy removeObject:cutAdjVertex];
-        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesListCopy vertexIndex:0 noOfCutAdjacent:cutAdjNumber-1 cutAdjUsed:cutAdjUsed=true noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex=cutAdjVertex lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
+        [usedToolsList addObject:cutAdjVertex];
+        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesListCopy vertexIndex:0 noOfCutAdjacent:cutAdjNumber-1 cutAdjUsed:cutAdjUsed=true noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=nil weaponEnumeration:true weaponIndex:0];
         
     }
     else if(weaponIndex == 0){
         Edge *edge = [edgeList objectAtIndex:edgeIndex];
         //HintWeapon *hintWeapon = [[HintWeapon alloc]initWithWeapon:@"DefaultWeapon" edgeIndex:edgeIndex];
         [_currentHintSteps addObject:[NSString stringWithFormat:@"%@ %@",edge.sourceVertex.keyIndex,edge.targetVertex.keyIndex]];
-        if (edgeIndex == 0) {
-            ;
-        }
         if([_hintList count] <= [_currentHintSteps count] && [_hintList count] != 0){
             /*if([foxVertex hintFreezed]){
-                [foxVertex setHintFreezed:false];
-            }*/
+             [foxVertex setHintFreezed:false];
+             }*/
             [_currentHintSteps removeLastObject];
             return;
         }
+        if ([_currentHintSteps count]==3 && [usedToolsList count]==1) {
+            ;
+        }
+        if ([usedToolsList count]>0) {
+            Vertex *vertex = [usedToolsList objectAtIndex:[usedToolsList count]-1];
+            if ([_frozenFoxesList containsObject:vertex]) {
+                if ([vertex hintNoFreezedTurns]==0) {
+                    [vertex setHintNoFreezedTurns:2];
+                }
+            }
+        }
         [edge setSimRemove:true];
         [[edge mirrorEdge]setSimRemove:true];
+        
         NSMutableArray *foxVerticeListCopy = [foxVerticesList mutableCopy];
         NSMutableArray *newFoxVerticesList = [self findBestFoxPaths:foxVerticeListCopy];
         NSMutableArray *edgeListCopy = [edgeList mutableCopy];
@@ -253,33 +297,36 @@
                 return 0;
             }
         }];
-        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=true noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false toolVertex:toolVertex lastEdge:lastEdge=edge weaponEnumeration:true weaponIndex:0];
+        [usedToolsList addObject:edge];
+        [self findHint:0 foxVerticesList:newFoxVerticesList edgeList: edgeListCopy edgeIndex:0 verticesList:verticesList vertexIndex:0 noOfCutAdjacent:cutAdjNumber cutAdjUsed:cutAdjUsed=false noOfFreezes:noOfFreezes freezeUsed:freezeUsed=false noOfFakeChickens:noOfFakeChickens fakeChickenUsed:fakeChickenUsed=false usedToolsList:usedToolsList lastEdge:lastEdge=edge weaponEnumeration:true weaponIndex:0];
     }
-    if(lastEdge != nil){
-        if(freezeUsed){
-            
-        }
+    if([[usedToolsList lastObject] isKindOfClass:[Edge class]]){
         [lastEdge setSimRemove:false];
         [[lastEdge mirrorEdge]setSimRemove:false];
         [_currentHintSteps removeLastObject];
-        
-   
+        [usedToolsList removeLastObject];
     }
     if(cutAdjUsed){
-        [self removeSimCutAdjacent:toolVertex edgeList:edgeList];
+        Vertex *cutAdjVertex = [usedToolsList lastObject];
+        [self removeSimCutAdjacent:cutAdjVertex edgeList:edgeList];
         [_currentHintSteps removeLastObject];
-        
+        [usedToolsList removeLastObject];
     }
     if (fakeChickenUsed) {
-        if ([toolVertex isFakeChicken]) {
-            [toolVertex setIsFakeChicken:false];
-            [_chickensVerticesList removeObject:toolVertex];
+        Vertex *fakeChickenVertex = [usedToolsList lastObject];
+        if ([fakeChickenVertex isFakeChicken]) {
+            [fakeChickenVertex setIsFakeChicken:false];
+            [_chickensVerticesList removeObject:fakeChickenVertex];
         }
         [_currentHintSteps removeLastObject];
+        [usedToolsList removeLastObject];
     }
     if (freezeUsed) {
+        Vertex *freezedFoxVertex = [usedToolsList lastObject];
         [_currentHintSteps removeLastObject];
-        [toolVertex setHintNoFreezedTurns:0];
+        [freezedFoxVertex setHintNoFreezedTurns:0];
+        [_frozenFoxesList removeLastObject];
+        [usedToolsList removeLastObject];
     }
 }
 -(void)simCutAdjacent:(Vertex*)vertex edgeList:(NSArray*)edgeList{
@@ -306,6 +353,7 @@
         NSArray *foxNextMoves = [self shortestVertexPaths:foxVertex foxVerticesList:foxVerticesList_];
         if ([foxVertex hintNoFreezedTurns] == 0) {
             if (foxNextMoves != nil) {
+                [foxVertex setHintStuck:false];
                 [foxesNextMovesList addObject:foxNextMoves];
                 foxNextMoves = nil;
             }
@@ -352,7 +400,7 @@
         [nextFoxVertex setFinalDistance:[[bestMovesList objectAtIndex:i] finalDistance]];
         int index = (int)[foxVerticesList_ indexOfObject:foxVertex];
         [foxVerticesList_ replaceObjectAtIndex:index withObject:nextFoxVertex];
- 
+        
     }
     [foxVerticesList_ sortUsingComparator:^NSComparisonResult(Vertex *vertexA, Vertex *vertexB) {
         int vertexADist = [vertexA finalDistance];

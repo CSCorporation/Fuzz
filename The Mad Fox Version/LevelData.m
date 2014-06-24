@@ -9,6 +9,6 @@
 #import "LevelData.h"
 
 @implementation LevelData
-@synthesize noOfCutAdjacents,noOfFakeChickens,noOfFreezes,map;
+@synthesize noOfCutAdjacents,noOfFakeChickens,noOfFreezes,map,hintList;
 
 @end

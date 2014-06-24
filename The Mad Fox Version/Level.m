@@ -30,11 +30,11 @@
 @synthesize points=_points,mapPointsList=_mapPointsList,chickenDictionary=_chickenDictionary,foxesDictionary=_foxesDictionary,graph = _graph,weapons=_weapons,currentWeapon=_currentWeapon,numberOfTurns,optimalNoOfTurns,observerDelegate=_observerDelegate;
 -(id)initWithFilename:(NSString *)fileName{
     if(self = [super init]){
- 
+        
         self.foxesDictionary = [NSMutableDictionary dictionary];
         self.chickenDictionary = [NSMutableDictionary dictionary];
         self.points = [NSMutableArray array];
-       
+        
         ParseLevelData *parseLevel = [[ParseLevelData alloc]init];
         [parseLevel readCrosswordXml:fileName];
         LevelData *levelData = [[parseLevel levelParser]levelData];
@@ -51,14 +51,12 @@
         [self fillPoints];
         tempGraph = nil;
         _moveUtilities = [[MoveUtils alloc]initWithGraph:_graph levelInfo:self];
-        HintUtils *hintUtils = [[HintUtils alloc]initWithGraph:_graph levelInfo:self];
-        [hintUtils findLevelHints];
+        
         NSMutableArray *tempWeapons = [[NSMutableArray alloc]init];
         DefaultWeapon *defaultWeapon = (DefaultWeapon*)[WeaponFactory getWeapon:@"DefaultWeapon" stockNumber:0];
         DummyChickenWeapon *dummyWeapon = (DummyChickenWeapon*)[WeaponFactory getWeapon:@"DummyChickenWeapon" stockNumber:[levelData noOfFakeChickens]];
         CutAdjacentWeapon *cutAdjacentWeapon = (CutAdjacentWeapon*)[WeaponFactory getWeapon:@"CutAdjacentsWeapon" stockNumber:[levelData noOfCutAdjacents]];
         FreezeFoxWeapon *freezeWeapon = (FreezeFoxWeapon*)[WeaponFactory getWeapon:@"FreezeWeapon" stockNumber:[levelData noOfFreezes]];
-        
         [dummyWeapon setGraph:_graph];
         [dummyWeapon setLevel:self];
         [cutAdjacentWeapon setGraph:_graph];
@@ -67,8 +65,7 @@
         [tempWeapons addObjectsFromArray:[NSArray arrayWithObjects:defaultWeapon,cutAdjacentWeapon,dummyWeapon,freezeWeapon, nil]];
         self.weapons = tempWeapons;
         [self setCurrentWeapon:[_weapons objectAtIndex:0]];
-        //[_graph generateHintSteps];
-        [self setOptimalNoOfTurns:4];
+        [self setOptimalNoOfTurns:(int)[[levelData hintList] count]];
     }
     return self;
 }
@@ -155,15 +152,17 @@
     }
 }
 -(void)generateHints{
-   /* PathLine *path = [_graph hint:[[_graph foxVerticesList]objectAtIndex:0]];
+    /* PathLine *path = [_graph hint:[[_graph foxVerticesList]objectAtIndex:0]];
      CGPoint start = [path startPoint];
      CGPoint end = [path endPoint];
      NSLog(@"HINT: CUT FROM %f:%f TO %f:%f",start.x,start.y,end.x,end.y);*/
-//    NSMutableArray *hintList = [_graph hintList];
-//    for (NSString *hint in hintList) {
-//        NSLog(@"%@",hint);
-//    }
-//    [_observerDelegate showHints:hintList];
+    //    NSMutableArray *hintList = [_graph hintList];
+    //    for (NSString *hint in hintList) {
+    //        NSLog(@"%@",hint);
+    //    }
+    //    [_observerDelegate showHints:hintList];
+    
+    [_observerDelegate showHints:nil];
 }
 -(void)changeWeapon:(int)index{
     [self setCurrentWeapon:[_weapons objectAtIndex:index]];

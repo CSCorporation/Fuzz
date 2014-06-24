@@ -15,7 +15,7 @@
     NSMutableArray *_edges;
     NSMutableArray *_chickensVerticesList;
     NSMutableArray *_foxVerticesList;
-    NSMutableArray *_freezeFoxesList;
+    NSMutableArray *_frozenFoxesList;;
     NSMutableArray *_hintList;
     NSMutableArray *_usedEdges;
     NSMutableArray *_currentHintSteps;

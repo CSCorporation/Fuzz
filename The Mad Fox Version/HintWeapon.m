@@ -9,24 +9,5 @@
 #import "HintWeapon.h"
 
 @implementation HintWeapon
-@synthesize weapon,cordX,cordY,edgeIndex;
--(id)initWithWeapon:(NSString *)weaponArg cordX:(int)cordXArg cordY:(int)cordYArg{
-    if(self = [super init]){
-        self.weapon = weaponArg;
-        self.cordX = cordXArg;
-        self.cordY = cordYArg;
-        self.edgeIndex = -1;
-    }
-    return self;
-}
--(id)initWithWeapon:(NSString *)weaponArg edgeIndex:(int)edgeIndexArg{
-    if(self = [super init]){
-        self.weapon = weaponArg;
-        self.cordX = -1;
-        self.cordY = -1;
-        self.edgeIndex = edgeIndexArg;
-    }
-    return self;
-}
-
+@synthesize weaponType,fromIndex,toIndex,targetIndex;
 @end

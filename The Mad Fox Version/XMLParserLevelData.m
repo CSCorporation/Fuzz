@@ -9,6 +9,7 @@
 #import "XMLParserLevelData.h"
 #import "LevelData.h"
 #import "MapPoint.h"
+#import "HintWeapon.h"
 @implementation XMLParserLevelData
 @synthesize levelData=_levelData;
 - (void)parser:(NSXMLParser *)parser
@@ -32,7 +33,12 @@ didStartElement:(NSString *)elementName
         [_mapPoint setIndex:index];
         [_mapPoint setChicken:isChicken];
         [_mapPoint setFox:isFox];
-        
+    }
+    else if([elementName isEqualToString:@"Hint"]){
+        _hintWeapon = [[HintWeapon alloc]init];
+    }
+    else if([elementName isEqualToString:@"Hints"]){
+        _hintList = [[NSMutableArray alloc]init];
     }
 }
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string {
@@ -89,7 +95,24 @@ didStartElement:(NSString *)elementName
     else if([elementName isEqualToString:@"Map"]){
         [_levelData setMap:_map];
     }
-    
+    else if([elementName isEqualToString:@"Type"]) {
+        [_hintWeapon setWeaponType:[value intValue]];
+    }
+    else if([elementName isEqualToString:@"fromIndex"]) {
+        [_hintWeapon setFromIndex:value];
+    }
+    else if([elementName isEqualToString:@"toIndex"]) {
+        [_hintWeapon setToIndex:value];
+    }
+    else if([elementName isEqualToString:@"targetIndex"]) {
+        [_hintWeapon setTargetIndex:value];
+    }
+    else if([elementName isEqualToString:@"Hint"]) {
+        [_hintList addObject:_hintWeapon];
+    }
+    else if([elementName isEqualToString:@"Hints"]){
+        [_levelData setHintList:_hintList];
+    }
     _currentElementValue = nil;
 }
 

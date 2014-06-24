@@ -9,13 +9,21 @@
 #import <Foundation/Foundation.h>
 @class LevelData;
 @class MapPoint;
+@class HintWeapon;
 @interface XMLParserLevelData : NSObject <NSXMLParserDelegate>
 {
     LevelData *_levelData;
-    NSMutableArray *_map;
+    
     MapPoint *_mapPoint;
+    
+    HintWeapon *_hintWeapon;
+    
     NSMutableString *_currentElementValue;
+    
     CGPoint _mapPointPosition;
+    
+    NSMutableArray *_map;
+    NSMutableArray *_hintList;
 }
 @property (nonatomic,retain) LevelData *levelData;
 @end

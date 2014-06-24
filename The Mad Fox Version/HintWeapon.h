@@ -7,14 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+typedef NS_ENUM(NSInteger, WeaponType){
+    DEFAULT_WEAPON=0,
+    CUT_ADJACENT_WEAPON=1,
+    FAKE_CHICKEN_WEAPON=2,
+    FREEZE_FOX_WEAPON=3
+};
 
 @interface HintWeapon : NSObject
-
--(id)initWithWeapon:(NSString*)weaponArg cordX:(int)cordXArg cordY:(int)cordYArg;
--(id)initWithWeapon:(NSString*)weaponArg edgeIndex:(int)edgeIndexArg;
-@property (nonatomic,retain) NSString *weapon;
-@property (nonatomic,assign) int cordX;
-@property (nonatomic,assign) int cordY;
-@property (nonatomic,assign) int edgeIndex;
+@property (nonatomic,assign) int weaponType;
+@property (nonatomic,retain) NSString *fromIndex;
+@property (nonatomic,retain) NSString *toIndex;
+@property (nonatomic,retain) NSString *targetIndex;
 
 @end

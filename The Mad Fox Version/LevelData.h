@@ -7,10 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
-
 @interface LevelData : NSObject
 @property (nonatomic,assign) int noOfCutAdjacents;
 @property (nonatomic,assign) int noOfFakeChickens;
 @property (nonatomic,assign) int noOfFreezes;
 @property (nonatomic,retain) NSMutableArray *map;
+@property (nonatomic,retain) NSMutableArray *hintList;
 @end
