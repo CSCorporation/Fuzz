@@ -18,7 +18,6 @@
 - (instancetype)initWithSegments:(int)segments objectA:(CCNode *)objectA posA:(CGPoint)posA objectB:(CCNode *)objectB posB:(CGPoint)posB
 {
     self = [super init];
-    CGSize contentSize = CGSizeMake(0, 0);
     if (!self) return(nil);
     objectB = nil;
     NSAssert(segments > 1, @"Rope must have at least two segments");
@@ -57,7 +56,7 @@
         CCNode *blobLineSegment = [CCNode node];
         blobLineSegment.position = segmentPos;
         
-        CCSprite *pathSprite = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"path%d.png",i+1]];
+        CCSprite *pathSprite = [CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"pathLine%d.png",i+1]];
         pathSprite.rotation = angle;
         [blobLineSegment addChild:pathSprite];
         if (i == 0) {
@@ -67,9 +66,10 @@
         if (i == middleElementIndex) {
             middleBlobLineSegment = blobLineSegment;
         }
-        pathSprite.scaleX = (segmentLength+2)/ pathSprite.contentSize.width;
-        contentSize.width = contentSize.width+pathSprite.contentSize.width;
-        contentSize.height = contentSize.height+pathSprite.contentSize.height;
+        
+        pathSprite.scaleX = (segmentLength)/ pathSprite.contentSize.width;
+         
+        
         blobLineSegment.physicsBody = [CCPhysicsBody bodyWithPillFrom:ccpMult(segmentVector, -0.5)
                                                                to:ccpMult(segmentVector, 0.5)
                                                      cornerRadius:0];
@@ -78,6 +78,7 @@
         blobLineSegment.physicsBody.collisionMask = @[@"sphere",@"villain"];
         blobLineSegment.physicsBody.collisionGroup = self;
         blobLineSegment.physicsBody.affectedByGravity = false;
+        
         [_segmentList addObject:pathSprite];
         [self addChild:blobLineSegment];
         float distance = segmentLength/2;
@@ -140,7 +141,7 @@
         [self addChild:objectB];
     }
     [CCPhysicsJoint connectedPivotJointWithBodyA:previousNode.physicsBody bodyB:objectB.physicsBody anchorA:jointAnchor];
-    [self setContentSize:contentSize];
+    //[self setContentSize:contentSize];
     NSLog(@"%f %f",self.boundingBox.size.width,self.boundingBox.size.height);
     
     // done

@@ -173,9 +173,7 @@
         _noOfFreezesLabel.position = ccp(FreezeFoxCounterX, FreezeFoxCounterY);
         
         //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:FoxPlist];
-        CCSpriteBatchNode *spriteSheet = [CCSpriteBatchNode batchNodeWithFile:VillainSpriteSheet];
         
-        [self addChild:spriteSheet];
         /*NSMutableArray *tempWalkAnimFrames = [NSMutableArray array];
         for (int i=1; i<=3; i++) {
             [tempWalkAnimFrames addObject:
@@ -194,9 +192,14 @@
             [foxSprite setScale:1];
             //[self resizeSprite:foxSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
             [_foxSpritesDictionary setObject:foxSprite forKey:[fox keyIndex]];
-            [spriteSheet addChild:foxSprite];
+            [self addChild:foxSprite z:50];
         }
         [self animateTheChicken];
+        CCNode *node = [CCNode node];
+        [node setContentSize:CGSizeMake(200, 200)];
+        node.position= ccp(200, 40);
+        [self addChild:node];
+        NSLog(@"%f %f",node.boundingBox.size.width,node.boundingBox.size.height);
     }
 	return self;
 }
@@ -219,14 +222,14 @@
     [_delegate quitGame];
 }
 -(void)drawAllLines{
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"pathLine.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"blobLine.plist"];
     for(int i=0;i<[_points count];i++){
         CGPoint startPoint = [[_points objectAtIndex:i] startPoint];
         CGPoint endPoint = [[_points objectAtIndex:i] endPoint];
-        CCSprite *startPointImg = [CCSprite spriteWithImageNamed:StartPointSprite];
-        CCSprite *endPointImg = [CCSprite spriteWithImageNamed:EndPointSprite];
-        [self resizeSprite:startPointImg toWidth:23 toHeight:23];
-        [self resizeSprite:endPointImg toWidth:23 toHeight:23];
+        CCSprite *startPointImg = [CCSprite spriteWithImageNamed:@"ball.png"];
+        CCSprite *endPointImg = [CCSprite spriteWithImageNamed:@"ball.png"];
+        [self resizeSprite:startPointImg toWidth:60 toHeight:60];
+        [self resizeSprite:endPointImg toWidth:60 toHeight:60];
         startPointImg.position = startPoint;
         endPointImg.position = endPoint;
         [self addChild:startPointImg z:40];
@@ -249,7 +252,7 @@
         }
         
         //[self drawLine:startPoint pointB:endPoint];
-        ElasticLine *elasticLine = [[ElasticLine alloc]initWithSegments:7 objectA:nil posA:startPoint objectB:nil posB:endPoint];
+        ElasticLine *elasticLine = [[ElasticLine alloc]initWithSegments:8 objectA:nil posA:startPoint objectB:nil posB:endPoint];
         [_physiscs addChild:elasticLine];
         [_ropeLines addObject:elasticLine];
     }
@@ -524,7 +527,7 @@
         [chickenSprite setScale:1];
 //        /[self resizeSprite:chickenSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
         [_chickenSpritesDictionary setObject:chickenSprite forKey:[chicken keyIndex]];
-        [spriteSheet addChild:chickenSprite];
+        [self addChild:chickenSprite z:50];
     }
     [self schedule:@selector(runChickenActions) interval:6.0];
 }
@@ -581,7 +584,7 @@
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event {
      CGPoint location = [self convertTouchToNodeSpace:touch];
     
-    
+    NSLog(@"%f %f",location.x,location.y);
     if([[_level currentWeapon] isKindOfClass:[DefaultWeapon class]]){
         
         for(int i = 0; i <[_ropeLines count];i++)
@@ -589,19 +592,15 @@
             CCTexture* tex = [CCTexture textureWithFile:@"line.png"];
             // NSLog(@"Array number: %d",_lineArray.count);
             ElasticLine *spriteT = [_ropeLines objectAtIndex:i];
-            
-            
-            
-            NSArray  *dsdd = [spriteT children];
             NSArray *segmentList = [spriteT segmentList];
             for (int j=0;j<[segmentList count]; j++) {
                 CCSprite *segment = [segmentList objectAtIndex:j];
-                CGRect bbox = CGRectMake(0, 0, segment.boundingBox.size.width, segment.boundingBox.size.height);
+                CGRect bbox = CGRectMake(0,0,segment.boundingBox.size.width,segment.boundingBox.size.height);
                 CGPoint newTouchLocation = [segment convertToNodeSpace:location];
                 if(CGRectContainsPoint(bbox, newTouchLocation))
                 {
                     [_delegate removePath:[_points objectAtIndex:i]];
-                    break;
+                    return;
                 }
             }
             
