@@ -9,6 +9,7 @@
 #import "GameOverView.h"
 #import "Constants.h"
 #import "UserDefaultsUtils.h"
+#import "LineView.h"
 
 @implementation GameOverView
 @synthesize delegate = _delegate;
@@ -21,26 +22,35 @@
         
         NSLog(@"Enter in SummaryView");
         
-        CCSprite* background = [CCSprite spriteWithImageNamed:GameOverBackground];
-        background.anchorPoint = CGPointMake(0, 0);
-        [self addChild:background];
+        if (stars == 0) {
+            CCSprite* background = [CCSprite spriteWithImageNamed:GameOverLose];
+            background.anchorPoint = CGPointMake(0, 0);
+            [self addChild:background z:-2];
+
+        }
+        else {
+            CCSprite* background = [CCSprite spriteWithImageNamed:GameOverWin];
+            background.anchorPoint = CGPointMake(0, 0);
+            [self addChild:background z:-2];
+
+        }
         
         CCButton *back = [CCButton buttonWithTitle:@"Menu" fontName:fontInTheGame fontSize:BackButtonFontSize];
         [back setTarget:self selector:@selector(menu)];
         back.position = ccp(winSize.width / 2, winSize.height / 6 - 50);
         [self addChild:back];
         
-        CCSprite* backSpot = [CCSprite spriteWithImageNamed:@"stain2.png"];
-        backSpot.position = ccp(back.contentSize.width / 2+10, back.contentSize.height / 2);
+        CCSprite* backSpot = [CCSprite spriteWithImageNamed:@"splat1.png"];
+        backSpot.position = ccp(back.contentSize.width / 2+10, back.contentSize.height / 2+ 10);
         backSpot.scale = 1;
         [back addChild:backSpot];
         
         _next = [CCButton buttonWithTitle:@"Next" fontName:fontInTheGame fontSize:BackButtonFontSize];
         [_next setTarget:self selector:@selector(nextLevel)];
-        _next.position = ccp(winSize.width / 1.2, winSize.height / 6 - 50);
-        [self addChild:_next];
+        _next.position = ccp(winSize.width / 1.2, winSize.height / 5);
+        [self addChild:_next z:2];
         
-        CCSprite* nextSpot = [CCSprite spriteWithImageNamed:@"stain3.png"];
+        CCSprite* nextSpot = [CCSprite spriteWithImageNamed:@"splat2.png"];
         nextSpot.position = ccp(_next.contentSize.width / 2, _next.contentSize.height / 2);
         nextSpot.scale = 1.2;
         [_next addChild:nextSpot];
@@ -48,24 +58,74 @@
         
         CCButton *levels = [CCButton buttonWithTitle:@"Again" fontName:fontInTheGame fontSize:BackButtonFontSize];
         [levels setTarget:self selector:@selector(goToLevels)];
-        levels.position = ccp(winSize.width / 6, winSize.height / 6 - 50);
+        levels.position = ccp(winSize.width / 6, winSize.height / 5);
         [self addChild:levels];
         
-        CCSprite* levelSpot = [CCSprite spriteWithImageNamed:@"stain3.png"];
+        CCSprite* levelSpot = [CCSprite spriteWithImageNamed:@"splat3.png"];
         levelSpot.position = ccp(levels.contentSize.width / 2, levels.contentSize.height / 2);
         levelSpot.scale = 1.2;
         [levels addChild:levelSpot];
         
         CCSprite* woodenSign = [CCSprite spriteWithImageNamed:GameOverContainer];
-        woodenSign.position = CGPointMake(winSize.width/1.8-10, winSize.height/2);
-        [self addChild:woodenSign z:1];
-        
-        CCSprite *foxSprite = [CCSprite spriteWithImageNamed:@"foxMM.png"];
-        //[self resizeSprite:foxSprite toWidth:180 toHeight:150];
-        foxSprite.position = CGPointMake(winSize.width/2.0, winSize.height/1.45);
-        //[self addChild:foxSprite];
+        woodenSign.position = CGPointMake(winSize.width/2, winSize.height/2);
+        [self addChild:woodenSign];
         
         [self setLevelSuccess:stars];
+        
+        CGPoint fromStars = ccp(_levelSpot.position.x, _levelSpot.position.y);
+        CGPoint toSignContainer = ccp(woodenSign.position.x, woodenSign.position.y);
+        LineView *a = [[LineView alloc]initWithPoints:fromStars endPoint:toSignContainer];
+        [self addChild:a z:-1];
+        
+        CGPoint fromContainer = ccp(woodenSign.position.x, woodenSign.position.y);
+        CGPoint toAgain = ccp(levels.position.x, levels.position.y);
+        LineView *b = [[LineView alloc]initWithPoints:fromContainer endPoint:toAgain];
+        [self addChild:b z:-1];
+        
+        CGPoint fromAgain = ccp(levels.position.x, levels.position.y);
+        CGPoint toMenu = ccp(back.position.x, back.position.y);
+        LineView *c = [[LineView alloc]initWithPoints:fromAgain endPoint:toMenu];
+        [self addChild:c z:-1];
+        
+        CGPoint fromMenu = ccp(back.position.x, back.position.y);
+        CGPoint toNext = ccp(_next.position.x, _next.position.y);
+        LineView *d = [[LineView alloc]initWithPoints:fromMenu endPoint:toNext];
+        [self addChild:d z:-1];
+        
+        LineView *e = [[LineView alloc] initWithPoints:fromContainer endPoint:toNext];
+        [self addChild:e z:-1];
+        
+        LineView *f = [[LineView alloc]initWithPoints:fromContainer endPoint:toMenu];
+        [self addChild:f z:-1];
+        
+        LineView *g = [[LineView alloc]initWithPoints:fromAgain endPoint:ccp(levels.position.x - 100, _levelSpot.position.y)];
+        [self addChild:g z:-1];
+        
+        LineView *h = [[LineView alloc]initWithPoints:ccp(levels.position.x-100, _levelSpot.position.y) endPoint:fromStars];
+        [self addChild:h z:-1];
+        
+        CCSprite* ball1 = [CCSprite spriteWithImageNamed:@"ball.png"];
+        ball1.position = ccp(levels.position.x - 100, _levelSpot.position.y);
+        [self addChild:ball1 z:0];
+        
+        LineView *i = [[LineView alloc]initWithPoints:toNext endPoint:ccp(_next.position.x + 100, _levelSpot.position.y)];
+        [self addChild:i z:-1];
+        
+        LineView *j = [[LineView alloc]initWithPoints:ccp(_next.position.x+100, _levelSpot.position.y) endPoint:fromStars];
+        [self addChild:j z:-1];
+        
+        CCSprite* ball2 = [CCSprite spriteWithImageNamed:@"ball.png"];
+        ball2.position = ccp(_next.position.x + 100, _levelSpot.position.y);
+        [self addChild:ball2 z:0];
+        
+        CCSprite* ball3 = [CCSprite spriteWithImageNamed:@"ball.png"];
+        ball3.position = fromStars;
+        [self addChild:ball3 z:-1];
+        
+        CCSprite* ball4 = [CCSprite spriteWithImageNamed:@"ball.png"];
+        ball4.position = toNext;
+        [self addChild:ball4 z:-1];
+        
         
     }
     return self;
@@ -89,10 +149,10 @@
     star2 = [CCSprite spriteWithImageNamed:GameOverStarsSprite];
     star3 = [CCSprite spriteWithImageNamed:GameOverStarsSprite];
     
-    CCSprite* levelSpot = [CCSprite spriteWithImageNamed:@"levelstain.png"];
-    levelSpot.position = ccp(winSize.width / 2+5 , winSize.height / 1.2);
-    levelSpot.scale = 1.4;
-    [self addChild:levelSpot];
+    _levelSpot = [CCSprite spriteWithImageNamed:@"splat11.png"];
+    _levelSpot.position = ccp(winSize.width / 2+5 , winSize.height / 1.2);
+    _levelSpot.scale = 1.4;
+    [self addChild:_levelSpot z:1];
     
     star2.opacity = 0;
     star1.opacity = 0;
@@ -125,7 +185,6 @@
             
             [levelMeterLabel runAction:[CCActionSequence actions:scalea, acBlock2,nil]];
             
-            
         }];
         [star3 runAction:[CCActionSequence actions:scale,acBlock, nil]];
 
@@ -150,7 +209,6 @@
     else if(numberOfStars == 2) {
         
         CCActionScaleTo* scale = [CCActionScaleTo actionWithDuration:0.4 scale:0.3];
-        
         CCActionCallBlock* block = [CCActionCallBlock actionWithBlock:^{
             
             
@@ -253,7 +311,7 @@
         [levelMeterLabel setString:@"Failed"];
         levelMeterLabel.scale = 1.0;
         [levelMeterLabel setVisible:YES];
-        levelSpot.visible = NO;
+        _levelSpot.visible = NO;
         [self showGetHints];
         
     }

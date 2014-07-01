@@ -37,27 +37,27 @@
         _back.position = ccp(viewSize.width / 2, viewSize.height / 6 - (IS_IPAD?70:0));
         [self addChild:_back];
         
-        _facebook = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:facebookBonus]];
+        _facebook = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:facebookBonus] highlightedSpriteFrame:nil disabledSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"fbShareUsed.png"]];
         [_facebook setTarget:self selector:@selector(facebook)];
         _facebook.position = ccp(viewSize.width / 1.3, viewSize.height / 1.5);
         [self addChild:_facebook];
         
-        _twitter = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:twitterBonus]];
+        _twitter = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:twitterBonus] highlightedSpriteFrame:nil disabledSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"twUsed.png"]];
         [_twitter setTarget:self selector:@selector(twitter)];
         _twitter.position = ccp(viewSize.width / 4.3, viewSize.height / 1.5);
         [self addChild:_twitter];
         
-        _rate = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:rateUsBonus]];
+        _rate = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:rateUsBonus] highlightedSpriteFrame:nil disabledSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"rateUsed.png"]];
         [_rate setTarget:self selector:@selector(rate)];
         _rate.position = ccp(viewSize.width / 1.5, viewSize.height / 2.5);
         [self addChild:_rate];
         
-        _like = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:likeUsBonus]];
+        _like = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:likeUsBonus] highlightedSpriteFrame:nil disabledSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"fbUsed.png"]];
         [_like setTarget:self selector:@selector(like)];
         _like.position = ccp(viewSize.width / 3.0, viewSize.height / 2.5);
         [self addChild:_like];
         
-        _video = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:likeUsBonus]];
+        _video = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:watchVideo] highlightedSpriteFrame:nil disabledSpriteFrame:[CCSpriteFrame frameWithImageNamed:@"watchUsed.png"]];
         [_video setTarget:self selector:@selector(runVideo)];
         _video.position = ccp(viewSize.width / 2, viewSize.height / 1.5);
         [self addChild:_video];
@@ -167,23 +167,18 @@
     BOOL isBonus5Passed = [ud getBonus:5];
     
     if(isBonus1Passed) {
-        _twitter.opacity = 0.4;
         _twitter.enabled = NO;
     }
     if(isBonus2Passed) {
-        _like.opacity = 0.4;
         _like.enabled = NO;
     }
     if(isBonus3Passed) {
-        _facebook.opacity = 0.4;
         _facebook.enabled = NO;
     }
     if(isBonus4Passed) {
-        _rate.opacity = 0.4;
         _rate.enabled = NO;
     }
     if(isBonus5Passed) {
-        _video.opacity = 0.4;
         _video.enabled = NO;
     }
 }

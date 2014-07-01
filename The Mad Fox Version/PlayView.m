@@ -111,7 +111,7 @@
         CCSprite* background = [CCSprite spriteWithImageNamed:@"fluffyHillsDayBackground.png"];
         background.anchorPoint = CGPointMake(0, 0);
         [self addChild:background];
-        
+       
         /*CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor whiteColor]];
         [self addChild:background];*/
         
@@ -119,9 +119,11 @@
         //PHYSICS INIT
         _physiscs = [CCPhysicsNode node];
         _physiscs.gravity = ccp(0, -900);
-        [self addChild:_physiscs];
+        [self addChild:_physiscs z:20];
         //_physiscs.debugDraw = true;
         //END PHYSICS INIT
+        
+        [self schedule:@selector(leafAnimation) interval:0.2];
         [self drawAllLines];
 
         _defaultWeaponButton = [CCButton buttonWithTitle:@"" spriteFrame:[CCSpriteFrame frameWithImageNamed:DefaultWeaponSprite] highlightedSpriteFrame:[CCSpriteFrame frameWithImageNamed:DefaultWeaponHighlightedSprite] disabledSpriteFrame:nil];
@@ -162,9 +164,6 @@
             [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"showtutorial"];
             
         }
-            
-        
-        
         _noOfAdjacentCutsLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[[[_level weapons]objectAtIndex:1] stockNumber]] fontName:fontInTheGame fontSize:CutAdjacentWeaponCounterFontSize];
         _noOfAdjacentCutsLabel.position = ccp(CutAdjacentWeaponCounterX, CutAdjacentWeaponCounterY);
         _noOfDummyPlacementsLabel = [CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[[[_level weapons]objectAtIndex:2] stockNumber]] fontName:fontInTheGame fontSize:DummyChickenCounterFontSize];
@@ -184,15 +183,15 @@
         self.foxSpritesDictionary = [NSMutableDictionary dictionary];
         NSArray *foxesList = [[_level foxesDictionary]allValues];
         for (Fox *fox in foxesList) {
-            CCSprite *foxSprite = [CCSprite spriteWithSpriteFrame:[CCSpriteFrame frameWithImageNamed:FoxFirstFrame]];
+            _foxSprite = [CCSprite spriteWithSpriteFrame:[CCSpriteFrame frameWithImageNamed:FoxFirstFrame]];
             CGPoint foxPosition = [fox position];
             foxPosition.y = foxPosition.y + 15;
-            foxSprite.position = foxPosition;
-            [foxSprite setRotationalSkewY:fox.rotation];
-            [foxSprite setScale:1];
+            _foxSprite.position = foxPosition;
+            [_foxSprite setRotationalSkewY:fox.rotation];
+            [_foxSprite setScale:1];
             //[self resizeSprite:foxSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
-            [_foxSpritesDictionary setObject:foxSprite forKey:[fox keyIndex]];
-            [self addChild:foxSprite z:50];
+            [_foxSpritesDictionary setObject:_foxSprite forKey:[fox keyIndex]];
+            [self addChild:_foxSprite z:50];
         }
         [self animateTheChicken];
         CCNode *node = [CCNode node];
@@ -200,8 +199,74 @@
         node.position= ccp(200, 40);
         [self addChild:node];
         NSLog(@"%f %f",node.boundingBox.size.width,node.boundingBox.size.height);
+        
+       
     }
 	return self;
+}
+-(void)leafAnimation {
+    
+   // int width = arc4random() % (long)_winSize.width;
+    int leafRandom = arc4random() % 10;
+    CCSprite* leaf;
+    
+    if (leafRandom == 0) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair1.png"];
+    }
+    else if (leafRandom == 1) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair2.png"];
+    }
+    else if (leafRandom == 2) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair3.png"];
+    }
+    else if (leafRandom == 3) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair4.png"];
+    }
+    else if (leafRandom == 4) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair5.png"];
+    }
+    else if (leafRandom == 5) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair6.png"];
+    }
+    else if (leafRandom == 6) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair7.png"];
+    }
+    else if (leafRandom == 7) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair8.png"];
+    }
+    else if (leafRandom == 8) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair9.png"];
+    }
+    else if (leafRandom == 9) {
+        leaf = [CCSprite spriteWithImageNamed:@"hair10.png"];
+    }
+    
+    int fromNumber = 60;
+    long toNumber = ((long)_winSize.width) - 60;
+    int randomNumber = (arc4random()%(toNumber-fromNumber))+fromNumber;
+    
+    leaf.position = ccp(randomNumber, _winSize.height);
+    [self addChild:leaf z:0];
+    
+    [self startMoving:leaf reverse:YES width:randomNumber];
+    
+}
+-(void)startMoving: (CCSprite*)sprite_ reverse:(BOOL)reverse_ width:(int)width_{
+    
+    ccBezierConfig bezier;
+
+    bezier.controlPoint_1 = ccp(sprite_.contentSize.width/1.2, sprite_.contentSize.height/2);
+    bezier.controlPoint_2 = ccp(-sprite_.contentSize.width/6, sprite_.contentSize.height/2);
+    bezier.endPosition = ccp(0.0f,0.0f);
+    
+    id bezierForward = [CCActionBezierBy actionWithDuration:2.0 bezier:bezier];
+    id move = [CCActionMoveTo actionWithDuration:20 position:ccp(width_, -20)];
+    id block = [CCActionCallBlock actionWithBlock:^{
+        [self removeChild:sprite_];
+    }];
+    [sprite_ runAction:[CCActionSequence actions:move,block, nil]];
+    [sprite_ runAction:[CCActionRepeatForever actionWithAction:bezierForward]];
+    
 }
 -(void)quit {
     NSLog(@"Quit");
@@ -228,12 +293,20 @@
         CGPoint endPoint = [[_points objectAtIndex:i] endPoint];
         CCSprite *startPointImg = [CCSprite spriteWithImageNamed:@"ball.png"];
         CCSprite *endPointImg = [CCSprite spriteWithImageNamed:@"ball.png"];
-        [self resizeSprite:startPointImg toWidth:60 toHeight:60];
-        [self resizeSprite:endPointImg toWidth:60 toHeight:60];
+        //[self resizeSprite:startPointImg toWidth:60 toHeight:60];
+        //[self resizeSprite:endPointImg toWidth:60 toHeight:60];
         startPointImg.position = startPoint;
         endPointImg.position = endPoint;
-        [self addChild:startPointImg z:40];
-        [self addChild:endPointImg z:40];
+        [self addChild:startPointImg z:21];
+        [self addChild:endPointImg z:21];
+        
+       // [startPointImg runAction:[CCActionRepeatForever actionWithAction:[CCActionSequence actions:[CCActionScaleTo actionWithDuration:1 scale:1.1],[CCActionScaleTo actionWithDuration:1 scale:1.0], nil]]];
+        
+       // [endPointImg runAction:[CCActionRepeatForever actionWithAction:[CCActionSequence actions:[CCActionScaleTo actionWithDuration:1 scale:1.1],[CCActionScaleTo actionWithDuration:1 scale:1.0], nil]]];
+        
+        [startPointImg runAction:[CCActionRepeatForever actionWithAction:[CCActionSequence actions:[CCActionRotateTo actionWithDuration:6 angle:180],[CCActionRotateTo actionWithDuration:6 angle:0], nil]]];
+        [endPointImg runAction:[CCActionRepeatForever actionWithAction:[CCActionSequence actions:[CCActionRotateTo actionWithDuration:6 angle:180],[CCActionRotateTo actionWithDuration:6 angle:0], nil]]];
+        
         if(![self isPointUsed:startPoint]) {
             NSString *index = [[PointUtils sharedInstance]keyForPosition:startPoint];
             CCLabelTTF *lbl = [CCLabelTTF labelWithString:index fontName:@"Arial" fontSize:70];
@@ -338,21 +411,7 @@
     
     [sprite runAction:[CCActionSequence actions:actionMove,actionMoveDone, nil]];
 }
--(void)drawLine:(CGPoint)start pointB:(CGPoint)end
-{
-    float dist = ccpDistance(start, end);
-    CCSprite *line = [CCSprite spriteWithImageNamed:PathSprite];
-    [line setAnchorPoint:ccp(0.0f, 0.5f)];
-    [line setPosition:start];
-    [line setScaleX:dist / line.boundingBox.size.width];
-    CGPoint firstVector = ccpSub(end, start);
-    CGFloat firstRotateAngle = -ccpToAngle(firstVector);
-    CGFloat previousTouch = CC_RADIANS_TO_DEGREES(firstRotateAngle);
-    [line setRotation:previousTouch];
-    [_ropeLines addObject:line];
-    [self addChild:line];
-    
-}
+
 -(void)resizeSprite:(CCSprite*)sprite toWidth:(float)width toHeight:(float)height {
     sprite.scaleX = width / sprite.contentSize.width;
     sprite.scaleY = height / sprite.contentSize.height;
@@ -411,7 +470,7 @@
         CCSprite *dummyChickenSprite = [CCSprite spriteWithImageNamed:[dummyChicken filename]];
         [_chickenSpritesDictionary setObject:dummyChickenSprite forKey:[dummyChicken keyIndex]];
         dummyChickenSprite.position = dummyChicken.position;
-        [self addChild:dummyChickenSprite];
+        [self addChild:dummyChickenSprite z:22];
         DummyChickenWeapon *dummyWeapon = [[_level weapons]objectAtIndex:2];
         [_noOfDummyPlacementsLabel setString:[NSString stringWithFormat:@"%d",[dummyWeapon stockNumber]]];
         if([dummyWeapon stockNumber] == 0)
@@ -427,6 +486,12 @@
     if([freezeWeapon stockNumber] == 0)
         [_freezeButton setEnabled:false];
     [self buttonPressed];
+    
+    _freezeBlock = [CCSprite spriteWithImageNamed:@"stun.png"];
+    _freezeBlock.position = _foxSprite.position;
+    _freezeBlock.opacity = 0;
+    [self addChild:_freezeBlock z:300 name:@"freezeBlock"];
+    [_freezeBlock runAction:[CCActionFadeIn actionWithDuration:1]];
 }
 -(void)showHints:(NSMutableArray *)hintList{
     /*NSLog(@"Show hint");
@@ -522,14 +587,18 @@
     for (Chicken *chicken in chickenList) {
         CCSprite *chickenSprite = [CCSprite spriteWithSpriteFrame:[CCSpriteFrame frameWithImageNamed:ChickenFirstFrame]];
         CGPoint chickenPosition = [chicken position];
-        chickenPosition.y = chickenPosition.y +5;
+        chickenPosition.y = chickenPosition.y;
         chickenSprite.position = chickenPosition;
         [chickenSprite setScale:1];
 //        /[self resizeSprite:chickenSprite toWidth:IS_IPAD?100:60 toHeight:IS_IPAD?100:60];
         [_chickenSpritesDictionary setObject:chickenSprite forKey:[chicken keyIndex]];
         [self addChild:chickenSprite z:50];
+        
+        [chickenSprite runAction:[CCActionRepeatForever actionWithAction:[CCActionSequence actions:[CCActionScaleTo actionWithDuration:1 scale:1.1],[CCActionScaleTo actionWithDuration:1 scale:1.0], nil]]];
+        
     }
     [self schedule:@selector(runChickenActions) interval:6.0];
+    
 }
 -(void)runChickenActions {
     /*NSArray *chickenSpritesList = [_chickenSpritesDictionary allValues];
@@ -589,7 +658,7 @@
         
         for(int i = 0; i <[_ropeLines count];i++)
         {
-            CCTexture* tex = [CCTexture textureWithFile:@"line.png"];
+           // CCTexture* tex = [CCTexture textureWithFile:@"line.png"];
             // NSLog(@"Array number: %d",_lineArray.count);
             ElasticLine *spriteT = [_ropeLines objectAtIndex:i];
             NSArray *segmentList = [spriteT segmentList];
@@ -600,6 +669,15 @@
                 if(CGRectContainsPoint(bbox, newTouchLocation))
                 {
                     [_delegate removePath:[_points objectAtIndex:i]];
+                    
+                    if([self getChildByName:@"freezeBlock" recursively:YES]) {
+                        id block = [CCActionCallBlock actionWithBlock:^{
+                            [self removeChild:_freezeBlock];
+                        }];
+                        id action = [CCActionFadeOut actionWithDuration:0.6];
+                        [_freezeBlock runAction:[CCActionSequence actions:action,block, nil]];
+                    }
+                    
                     return;
                 }
             }
@@ -843,4 +921,22 @@
 	point = [[CCDirector sharedDirector] convertToGL: point];
 	return [self convertToNodeSpace:point];
 }
+
+//OLD CODE
+
+//-(void)drawLine:(CGPoint)start pointB:(CGPoint)end
+//{
+//    float dist = ccpDistance(start, end);
+//    CCSprite *line = [CCSprite spriteWithImageNamed:PathSprite];
+//    [line setAnchorPoint:ccp(0.0f, 0.5f)];
+//    [line setPosition:start];
+//    [line setScaleX:dist / line.boundingBox.size.width];
+//    CGPoint firstVector = ccpSub(end, start);
+//    CGFloat firstRotateAngle = -ccpToAngle(firstVector);
+//    CGFloat previousTouch = CC_RADIANS_TO_DEGREES(firstRotateAngle);
+//    [line setRotation:previousTouch];
+//    [_ropeLines addObject:line];
+//    [self addChild:line z:20];
+//
+//}
 @end

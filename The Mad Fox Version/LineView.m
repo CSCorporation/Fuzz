@@ -19,7 +19,7 @@
         _toPoint = endPoint;
         
         float dist = ccpDistance(startPoint, endPoint);
-        CCSprite *line = [CCSprite spriteWithImageNamed:@"line.png"];
+        CCSprite *line = [CCSprite spriteWithImageNamed:@"string3.png"];
         [line setAnchorPoint:ccp(0.0f, 0.5f)];
         [line setPosition:startPoint];
         [line setScaleX:dist / line.boundingBox.size.width];

@@ -14,7 +14,7 @@
 #import "GameOverController.h"
 #import "Constants.h"
 #import "LevelController.h"
-
+#import "AchievementsController.h"
 @implementation AppDelegate
 
 // 
@@ -80,7 +80,7 @@
 -(CCScene *)startScene
 {
 	// This method should return the very first scene to be run when your app starts.
-	return [PlayController sceneWithLevelNumber:4];
+	return [PlayController sceneWithLevelNumber:1];
 }
 //- (void)applicationDidEnterBackground:(UIApplication *)application
 //{

@@ -45,6 +45,8 @@
     CCSprite* _help1Sprite; //First run shows the help sprite for hints
     CCSprite* _help2Sprite; //First run shows the help sprite for weapons
     CCSprite* _help3Sprite; //First run shows the help srpite for cuttin lines
+    CCSprite* _foxSprite;
+    CCSprite* _freezeBlock;
     
     Level *_level;
     
@@ -68,13 +70,6 @@
     CGSize _winSize;
     int _countNoTouch;
     long _numberOfHints;
-    
-
-    
-    
-    
-    
-
     
 }
 -(id)initWithDelegate:(id<PlayDelegate>) delegateArg level:(Level*)level;

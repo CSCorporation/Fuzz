@@ -113,16 +113,16 @@ static NSString* WeaponContainerSprite = @"weaponContainer.png";
 static NSString* Arrow_Weapon_ContainerSprite = @"arrow.png";
 
 //Weapons & Hint
-static NSString* DefaultWeaponSprite = @"defaultButton.png";
+static NSString* DefaultWeaponSprite = @"default.png";
 static NSString* DefaultWeaponHighlightedSprite = @"defaultButtonHover.png";
 
-static NSString* CutAdjacentWeaponSprite = @"cutAdjacentButton.png";
+static NSString* CutAdjacentWeaponSprite = @"adjecement.png";
 static NSString* CutAdjacentHighlightedWeaponSprite = @"cutAdjacentButtonHover.png";
 
-static NSString* DummyChickenSprite = @"dummyButton.png";
+static NSString* DummyChickenSprite = @"dummy.png";
 static NSString* DummyChickenHighlightedSprite = @"dummyButtonHover.png";
 
-static NSString* FreezeFoxSprite = @"freezeButton.png";
+static NSString* FreezeFoxSprite = @"freeze.png";
 static NSString* FreezeFoxHighlightedSprite = @"freezeButtonHover.png";
 
 static NSString* HintSprite = @"hint.png";
@@ -152,8 +152,9 @@ static NSString* ChickenFrames = @"%d.png";
 static NSString* ChickenFirstFrame = @"fluffy.png";
 
 //******************GAME OVER VIEW******************//
-static NSString* GameOverBackground = @"wall.png";
-static NSString* GameOverContainer = @"stain.png";
+static NSString* GameOverWin = @"Win.jpg";
+static NSString* GameOverLose = @"Lose.jpg";
+static NSString* GameOverContainer = @"splat12.png";
 static NSString* GameOverStarsSprite = @"bistar.png";
 static NSString* GameOverFailed = @"failed.png";
 static NSString* GameOverGood = @"good.png";
@@ -176,25 +177,28 @@ static NSString* ChapterItem2 = @"star.png";
 static NSString* ChapterItem3 = @"star.png";
 
 //******************MENU VIEW******************//
-static NSString* MenuBackground = @"menuwall.png";
+static NSString* MenuBackground = @"fluffyHillsDayBackground.png";
 static NSString* MenuLogo = @"foxMM.png";
 
 //******************LEVEL VIEW******************//n
-static NSString* LevelBackground = @"wall.png";
-static NSString* LevelButtonSprite = @"level.png";
+static NSString* LevelBackground = @"fluffyHillsDayBackground.png";
+static NSString* LevelButtonSprite = @"ball.png";
 static NSString* LevelStar = @"star.png";
 
 //******************OPTIONS VIEW******************//
 static NSString* OptionsBackground = @"background4.png";
 
 //******************ACHIEVEMENTS VIEW******************//
-static NSString* achiev_image_1 = @"star.png";
-static NSString* achiev_image_2 = @"star.png";
-static NSString* achiev_image_3 = @"star.png";
-static NSString* achiev_image_4 = @"star.png";
-static NSString* achiev_image_5 = @"star.png";
-static NSString* achiev_image_6 = @"star.png";
+static NSString* achiev_image_1 = @"bronseMedal.png";
+static NSString* achiev_image_2 = @"silverMedal.png";
+static NSString* achiev_image_3 = @"goldMedal.png";
+static NSString* achiev_image_4 = @"bronzeCup.png";
+static NSString* achiev_image_5 = @"sivlerCup.png";
+static NSString* achiev_image_6 = @"goldCup.png";
 static NSString* achiev_image_7 = @"star.png";
+
+static NSString* achievementsBack = @"achievementsBack.jpg";
+static NSString* achievementsBackCurtains = @"achievementsBackCurtains.png";
 
 //******************CHAPTER VIEW******************//
 static NSString* chapter_1_image = @"chapter1.jpg";
@@ -202,11 +206,10 @@ static NSString* chapter_2_image = @"chapter2.jpg";
 static NSString* chapter_3_image = @"chapter3.jpg";
 
 //******************BONUS VIEW********************//
-static NSString* BonusBackground = @"wall.png";
-
-static NSString* facebookBonus = @"rate.png";
-static NSString* twitterBonus = @"rate.png";
-static NSString* likeUsBonus = @"rate.png";
-
+static NSString* BonusBackground = @"fluffyHillsDayBackground.png";
+static NSString* facebookBonus = @"fbShare.png";
+static NSString* twitterBonus = @"tw.png";
+static NSString* likeUsBonus = @"fb.png";
+static NSString* watchVideo = @"watch.png";
 static NSString* rateUsBonus = @"rate.png";
 

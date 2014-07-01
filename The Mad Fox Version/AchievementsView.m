@@ -20,10 +20,15 @@
         self.contentSize = [[CCDirector sharedDirector] viewSize];
         [self setUserInteractionEnabled:YES];
         [self setMultipleTouchEnabled:YES];
+
         
-        CCSprite* background = [CCSprite spriteWithImageNamed:BonusBackground];
+        CCSprite* background = [CCSprite spriteWithImageNamed:achievementsBack];
         background.anchorPoint = CGPointMake(0, 0);
-        //[self addChild:background];
+        [self addChild:background z:0];
+        
+        CCSprite* curtains = [CCSprite spriteWithImageNamed:achievementsBackCurtains];
+        curtains.anchorPoint = CGPointMake(0, 0);
+        [self addChild:curtains z:2];
         
         CCLabelTTF *title = [CCLabelTTF labelWithString:@"Achievements" fontName:fontInTheGame fontSize:40];
         title.position = ccp(viewSize.width / 2, viewSize.height / 2+(IS_IPAD?350:130));
@@ -31,66 +36,66 @@
         
         CCButton *back = [CCButton buttonWithTitle:BackButtonTitle fontName:fontInTheGame fontSize:BackButtonFontSize];
         [back setTarget:self selector:@selector(back)];
-        back.position = ccp(viewSize.width / 2, viewSize.height / 6 - 20);
+        back.position = ccp(viewSize.width / 1.2, viewSize.height / 6 - 20);
         [self addChild:back];
         
         CCNode *cards = [CCNode node];
-        cards.contentSize = CGSizeMake(viewSize.width * 3, viewSize.height);
+        cards.contentSize = CGSizeMake(viewSize.width * 7, viewSize.height);
         
         _card1 = [CCSprite spriteWithImageNamed:achiev_image_1];
         _card1.position = ccp(viewSize.width * 0.5, viewSize.height / 2);
         _card1Label = [CCLabelTTF labelWithString:achiev_label_1 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card1Label.position = ccp(viewSize.width * 0.5, viewSize.height / 2+60);
+        _card1Label.position = ccp(_card1.position.x, _card1.position.y + 100);
         _card1_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card1_share_button.position = ccp(viewSize.width * 0.5, viewSize.height / 2-60);
+        _card1_share_button.position = ccp(_card1.position.x, _card1.position.y - 110);
         [_card1_share_button setTarget:self selector:@selector(shareAchievement1)];
         
         _card2 = [CCSprite spriteWithImageNamed:achiev_image_2];
-        _card2.position = ccp(viewSize.width * 0.8, viewSize.height / 2);
+        _card2.position = ccp(viewSize.width * 1.5, viewSize.height / 2);
         _card2Label = [CCLabelTTF labelWithString:achiev_label_2 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card2Label.position = ccp(viewSize.width * 0.8, viewSize.height / 2+60);
+        _card2Label.position = ccp(_card2.position.x, _card2.position.y + 100);
         _card2_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card2_share_button.position = ccp(viewSize.width * 0.8, viewSize.height / 2-60);
+        _card2_share_button.position = ccp(_card2.position.x, _card2.position.y - 110);
         [_card2_share_button setTarget:self selector:@selector(shareAchievement2)];
         
         _card3 = [CCSprite spriteWithImageNamed:achiev_image_3];
-        _card3.position = ccp(viewSize.width * 1.1, viewSize.height / 2);
+        _card3.position = ccp(viewSize.width * 2.5, viewSize.height / 2);
         _card3Label = [CCLabelTTF labelWithString:achiev_label_3 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card3Label.position = ccp(viewSize.width * 1.1, viewSize.height / 2+60);
+        _card3Label.position = ccp(_card3.position.x, _card3.position.y + 100);
         _card3_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card3_share_button.position = ccp(viewSize.width * 1.1, viewSize.height / 2-60);
+        _card3_share_button.position = ccp(_card3.position.x, _card3.position.y - 110);
         [_card3_share_button setTarget:self selector:@selector(shareAchievement3)];
         
         _card4 = [CCSprite spriteWithImageNamed:achiev_image_4];
-        _card4.position = ccp(viewSize.width * 1.4, viewSize.height / 2);
+        _card4.position = ccp(viewSize.width * 3.5, viewSize.height / 2);
         _card4Label = [CCLabelTTF labelWithString:achiev_label_4 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card4Label.position = ccp(viewSize.width * 1.4, viewSize.height / 2+60);
+        _card4Label.position = ccp(_card4.position.x, _card4.position.y + 130);
         _card4_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card4_share_button.position = ccp(viewSize.width * 1.4, viewSize.height / 2-60);
+        _card4_share_button.position = ccp(_card4.position.x, _card4.position.y - 140);
         [_card4_share_button setTarget:self selector:@selector(shareAchievement4)];
         
         _card5 = [CCSprite spriteWithImageNamed:achiev_image_5];
-        _card5.position = ccp(viewSize.width * 1.7, viewSize.height / 2);
+        _card5.position = ccp(viewSize.width * 4.5, viewSize.height / 2);
         _card5Label = [CCLabelTTF labelWithString:achiev_label_5 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card5Label.position = ccp(viewSize.width * 1.7, viewSize.height / 2+60);
+        _card5Label.position = ccp(_card5.position.x, _card5.position.y + 130);
         _card5_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card5_share_button.position = ccp(viewSize.width * 1.7, viewSize.height / 2-60);
+        _card5_share_button.position = ccp(_card5.position.x, _card5.position.y - 140);
         [_card5_share_button setTarget:self selector:@selector(shareAchievement5)];
         
         _card6 = [CCSprite spriteWithImageNamed:achiev_image_6];
-        _card6.position = ccp(viewSize.width * 2.0, viewSize.height / 2);
+        _card6.position = ccp(viewSize.width * 5.5, viewSize.height / 2);
         _card6Label = [CCLabelTTF labelWithString:achiev_label_6 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card6Label.position = ccp(viewSize.width * 2.0, viewSize.height / 2+60);
+        _card6Label.position = ccp(_card6.position.x, _card6.position.y + 130);
         _card6_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card6_share_button.position = ccp(viewSize.width * 2.0, viewSize.height / 2-60);
+        _card6_share_button.position = ccp(_card6.position.x, _card6.position.y - 140);
         [_card6_share_button setTarget:self selector:@selector(shareAchievement6)];
         
         _card7 = [CCSprite spriteWithImageNamed:achiev_image_7];
-        _card7.position = ccp(viewSize.width * 2.3, viewSize.height / 2);
+        _card7.position = ccp(viewSize.width * 6.5, viewSize.height / 2);
         _card7Label = [CCLabelTTF labelWithString:achiev_label_7 fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card7Label.position = ccp(viewSize.width * 2.3, viewSize.height / 2+60);
+        _card7Label.position = ccp(_card7.position.x, _card7.position.y + 100);
         _card7_share_button = [CCButton buttonWithTitle:achiev_share_label fontName:fontInTheGame fontSize:achievements_fontSize];
-        _card7_share_button.position = ccp(viewSize.width * 2.3, viewSize.height / 2-60);
+        _card7_share_button.position = ccp(_card7.position.x, _card7.position.y - 140);
         [_card7_share_button setTarget:self selector:@selector(shareAchievement7)];
         
         [self checkAchievements];
@@ -120,7 +125,7 @@
         _cardScroll = [[CCScrollView alloc] initWithContentNode:cards];
         [_cardScroll setAnchorPoint:ccp(0.0f, 0.0f)];
         [_cardScroll setPosition:ccp(0, 0)];
-        [_cardScroll setPagingEnabled:NO];
+        [_cardScroll setPagingEnabled:YES];
         [_cardScroll setVerticalScrollEnabled:NO];
         [self addChild:_cardScroll z:1 name:@"Card Scroll"];
     }
@@ -169,7 +174,6 @@
         _card7.opacity = 0.4;
         _card7_share_button.visible = NO;
     }
-    
 }
 -(void)shareAchievement1 {
     [_delegate shareAchievement1];

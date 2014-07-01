@@ -67,7 +67,7 @@
             middleBlobLineSegment = blobLineSegment;
         }
         
-        pathSprite.scaleX = (segmentLength)/ pathSprite.contentSize.width;
+        pathSprite.scaleX = (segmentLength+3)/ pathSprite.contentSize.width;
          
         
         blobLineSegment.physicsBody = [CCPhysicsBody bodyWithPillFrom:ccpMult(segmentVector, -0.5)
@@ -81,11 +81,11 @@
         
         [_segmentList addObject:pathSprite];
         [self addChild:blobLineSegment];
-        float distance = segmentLength/2;
+      //  float distance = segmentLength/2;
         
         [CCPhysicsJoint connectedPivotJointWithBodyA:previousNode.physicsBody bodyB:blobLineSegment.physicsBody anchorA:jointAnchor];
         if (i == segments-1) {
-            CCSprite *firstPathSprite = [[firstBlobLineSegment children]objectAtIndex:0];
+        //    CCSprite *firstPathSprite = [[firstBlobLineSegment children]objectAtIndex:0];
             CCNode *springNode = [CCNode node];
             float springNodePosX=0.f;
             float springNodePosY=0.f;

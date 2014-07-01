@@ -27,7 +27,7 @@
     Graph *graph = [self graph];
     NSArray *chickenList = [[_level chickenDictionary] allValues];
     CGPoint chickenPoint = [[PointUtils sharedInstance]positionForKey:[vertex keyIndex]];
-    Chicken *chicken = [[Chicken alloc]initWithImageFilename:@"fake_bird.png" atPoint:chickenPoint keyIndex:[NSString stringWithFormat:@"chickenKeyIndex%d",(int)[chickenList count]]];
+    Chicken *chicken = [[Chicken alloc]initWithImageFilename:@"dummyChicken.png" atPoint:chickenPoint keyIndex:[NSString stringWithFormat:@"chickenKeyIndex%d",(int)[chickenList count]]];
     [chicken setIsDummyChicken:true];
     [[graph chickenVerticesList]addObject:vertex];
     [[_level chickenDictionary]setObject:chicken forKey:[vertex keyIndex]];

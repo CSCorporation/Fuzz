@@ -50,7 +50,7 @@
         int xPosition = IS_IPAD?90:75;
         int yPosition = IS_IPAD?600:250;
         
-        int xPositionRow2 = IS_IPAD?930:75;
+        int xPositionRow2 = IS_IPAD?910:75;
         int xPositionRow3 = IS_IPAD?90:75;
         
         NSMutableArray* buttonArray = [NSMutableArray new];
@@ -65,25 +65,44 @@
             spinningLabel.visible = YES;
             [buttonArray addObject:spinningButton];
             
+            int random = arc4random() % (IS_IPAD?50:25);
+            NSLog(@"Random: %i",random);
+            int randomSign = arc4random() % 2;
+            
             if(i > 7 && i < 15) {
-                
-                spinningButton.position = ccp(xPositionRow2, yPosition - (IS_IPAD?140:70));
+                if(randomSign == 0) {
+                    spinningButton.position = ccp(xPositionRow2, yPosition - (IS_IPAD?180:70) + random);
+                }
+                else {
+                    spinningButton.position = ccp(xPositionRow2, yPosition - (IS_IPAD?180:70) - random);
+                }
                 xPositionRow2 -= IS_IPAD?140:70;
+                
             }
             else if(i > 14) {
                 
-                spinningButton.position = ccp(xPositionRow3, yPosition - (IS_IPAD?280:140));
+                if(randomSign == 0) {
+                    spinningButton.position = ccp(xPositionRow3, yPosition - (IS_IPAD?360:140) + random);
+                }
+                else {
+                    spinningButton.position = ccp(xPositionRow3, yPosition - (IS_IPAD?360:140) - random);
+                }
                 xPositionRow3 += IS_IPAD?140:70;
                 
             }
             else {
                 
-                spinningButton.position = ccp(xPosition, yPosition);
+                if(randomSign == 0) {
+                    spinningButton.position = ccp(xPosition, yPosition + random);
+                }
+                else {
+                    spinningButton.position = ccp(xPosition, yPosition - random);
+                }
                 xPosition += IS_IPAD?140:70;
                 
             }
-            [spinningButton setScaleX:IS_IPAD?1.0:0.5];
-            [spinningButton setScaleY:IS_IPAD?1.0:0.5];
+            [spinningButton setScaleX:IS_IPAD?1.2:0.5];
+            [spinningButton setScaleY:IS_IPAD?1.2:0.5];
             [spinningButton setBlock:^(id sender) {
     
 /* 

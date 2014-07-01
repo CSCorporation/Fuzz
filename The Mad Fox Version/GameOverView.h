@@ -33,6 +33,7 @@
     int _levelStars;
     NSMutableDictionary *_data;
     CCButton *_next;
+    CCSprite* _levelSpot;
 }
 -(id)initWithDelegate:(id<SummaryDelegate>) delegateArg;
 @property (nonatomic,retain) id<SummaryDelegate> delegate;
